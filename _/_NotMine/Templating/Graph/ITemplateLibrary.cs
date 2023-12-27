@@ -1,35 +1,35 @@
-using SunamoFubuCsProjFile._._NotMine.Templating;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+
 
 public interface ITemplateLibrary
 {
 #if ASYNC
     Task<IEnumerable<Template>>
 #else
-  IEnumerable<Template>
+IEnumerable<Template>
 #endif
-All();
+    All();
 #if ASYNC
     Task<Template>
 #else
 Template
 #endif
-Find(TemplateType type, string name);
+    Find(TemplateType type, string name);
 
 #if ASYNC
     Task<IEnumerable<Template>>
 #else
-  IEnumerable<Template>
+IEnumerable<Template>
 #endif
-Find(TemplateType type, IEnumerable<string> names);
+    Find(TemplateType type, IEnumerable<string> names);
 
 #if ASYNC
     Task<IEnumerable<MissingTemplate>>
 #else
-  IEnumerable<MissingTemplate>
+IEnumerable<MissingTemplate>
 #endif
- Validate(TemplateType type, params string[] names);
+    Validate(TemplateType type, params string[] names);
 }
 
 public class MissingTemplate
@@ -42,6 +42,6 @@ public class MissingTemplate
     {
         var validChoiceString = ValidChoices.Select(x => "'{0}'".ToFormat(x)).Join(", ");
         return "Unknown {0} template '{1}', valid choices are {2}"
-            .ToFormat(TemplateType.ToString(), Name, validChoiceString);
+        .ToFormat(TemplateType.ToString(), Name, validChoiceString);
     }
 }

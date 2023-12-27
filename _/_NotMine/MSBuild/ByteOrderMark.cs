@@ -28,21 +28,21 @@ public class ByteOrderMark
 
     private static readonly ByteOrderMark[] table =
     {
-        new ByteOrderMark(Encodings.utf8, new byte[] { 0xEF, 0xBB, 0xBF }),
-        new ByteOrderMark(Encodings.utf32Be, new byte[] { 0x00, 0x00, 0xFE, 0xFF }),
-        new ByteOrderMark(Encodings.utf32Le, new byte[] { 0xFF, 0xFE, 0x00, 0x00 }),
-        new ByteOrderMark(Encodings.utf16Be, new byte[] { 0xFE, 0xFF }),
-        new ByteOrderMark(Encodings.utf16Le, new byte[] { 0xFF, 0xFE }),
-        new ByteOrderMark(Encodings.utf7, new byte[] { 0x2B, 0x2F, 0x76, 0x38 }),
-        new ByteOrderMark(Encodings.utf7_1, new byte[] { 0x2B, 0x2F, 0x76, 0x39 }),
-        new ByteOrderMark(Encodings.utf7_2, new byte[] { 0x2B, 0x2F, 0x76, 0x2B }),
-        new ByteOrderMark(Encodings.utf7_3, new byte[] { 0x2B, 0x2F, 0x76, 0x2F }),
-        new ByteOrderMark(Encodings.utf1, new byte[] { 0xF7, 0x64, 0x4C }),
-        new ByteOrderMark(Encodings.UTF_EBCDIC, new byte[] { 0xDD, 0x73, 0x66, 0x73 }),
-        new ByteOrderMark(Encodings.SCSU, new byte[] { 0x0E, 0xFE, 0xFF }),
-        new ByteOrderMark(Encodings.BOCU_1, new byte[] { 0xFB, 0xEE, 0x28 }),
-        new ByteOrderMark(Encodings.GB18030, new byte[] { 0x84, 0x31, 0x95, 0x33 })
-    };
+new ByteOrderMark(Encodings.utf8, new byte[] { 0xEF, 0xBB, 0xBF }),
+new ByteOrderMark(Encodings.utf32Be, new byte[] { 0x00, 0x00, 0xFE, 0xFF }),
+new ByteOrderMark(Encodings.utf32Le, new byte[] { 0xFF, 0xFE, 0x00, 0x00 }),
+new ByteOrderMark(Encodings.utf16Be, new byte[] { 0xFE, 0xFF }),
+new ByteOrderMark(Encodings.utf16Le, new byte[] { 0xFF, 0xFE }),
+new ByteOrderMark(Encodings.utf7, new byte[] { 0x2B, 0x2F, 0x76, 0x38 }),
+new ByteOrderMark(Encodings.utf7_1, new byte[] { 0x2B, 0x2F, 0x76, 0x39 }),
+new ByteOrderMark(Encodings.utf7_2, new byte[] { 0x2B, 0x2F, 0x76, 0x2B }),
+new ByteOrderMark(Encodings.utf7_3, new byte[] { 0x2B, 0x2F, 0x76, 0x2F }),
+new ByteOrderMark(Encodings.utf1, new byte[] { 0xF7, 0x64, 0x4C }),
+new ByteOrderMark(Encodings.UTF_EBCDIC, new byte[] { 0xDD, 0x73, 0x66, 0x73 }),
+new ByteOrderMark(Encodings.SCSU, new byte[] { 0x0E, 0xFE, 0xFF }),
+new ByteOrderMark(Encodings.BOCU_1, new byte[] { 0xFB, 0xEE, 0x28 }),
+new ByteOrderMark(Encodings.GB18030, new byte[] { 0x84, 0x31, 0x95, 0x33 })
+};
 
     private ByteOrderMark(Encodings name, byte[] bytes)
     {

@@ -1,6 +1,5 @@
-using SunamoFubuCsProjFile._._NotMine.Consts;
-
 namespace SunamoFubuCsProjFile._._NotMine;
+
 
 public class Content : ProjectItem
 {
@@ -41,8 +40,8 @@ public class Content : ProjectItem
         base.Read(item);
 
         var copyString = item.HasMetadata(CopyToOutputDirectoryAtt)
-            ? item.GetMetadata(CopyToOutputDirectoryAtt)
-            : null;
+        ? item.GetMetadata(CopyToOutputDirectoryAtt)
+        : null;
 
         switch (copyString)
         {

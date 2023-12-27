@@ -17,7 +17,7 @@ public class SolutionDirectory : ITemplateStep
     public static IEnumerable<SolutionDirectory> PlanForDirectory(string root)
     {
         return Directory.GetDirectories(root, "*", SearchOption.AllDirectories)
-            .Select(dir => new SolutionDirectory(dir.PathRelativeTo(root)));
+        .Select(dir => new SolutionDirectory(dir.PathRelativeTo(root)));
     }
 
     protected bool Equals(SolutionDirectory other)

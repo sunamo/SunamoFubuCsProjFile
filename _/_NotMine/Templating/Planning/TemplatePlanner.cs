@@ -1,6 +1,6 @@
-using FubuCsprojFile.Templating.Planning;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Planning;
+
+
 
 /// <summary>
 /// ITemplatePlannerActionAsync - Tohle budu muset více analyzovat a více se naučit async, abych věděl jak na to. Do té doby, commented.
@@ -17,27 +17,27 @@ public abstract class TemplatePlanner : ITemplatePlannerAction/*, ITemplatePlann
 
     public
 #if ASYNC
-async Task
+    async Task
 #else
 void
 #endif
-        Init()
+    Init()
     {
         ShallowMatch(GemReference.File).Do = GemReference.ConfigurePlan;
         ShallowMatch(GitIgnoreStep.File).Do = GitIgnoreStep.ConfigurePlan;
 
         ShallowMatch(RakeFileTransform.SourceFile).Do =
 #if ASYNC
-async
+        async
 #endif
-(file, plan) =>
+        (file, plan) =>
         {
             plan.Add(new RakeFileTransform(
 #if ASYNC
-await
+    await
 #endif
-file.ReadAll()
-));
+    file.ReadAll()
+    ));
         };
     }
 

@@ -8,7 +8,7 @@ public class MissingInputException : Exception
     }
 
     public MissingInputException(IEnumerable<string> inputNames) : base(
-        "Required inputs {0} are missing".ToFormat(inputNames.Join(", ")))
+    "Required inputs {0} are missing".ToFormat(inputNames.Join(", ")))
     {
         InputNames = inputNames;
     }

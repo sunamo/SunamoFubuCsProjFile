@@ -1,6 +1,5 @@
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
 
 public class CreateSolution : ITemplateStep
 {
@@ -20,8 +19,8 @@ public class CreateSolution : ITemplateStep
     /// <param name="plan"></param>
     /// <returns></returns>
     public
-void
-Alter(TemplatePlan plan)
+    void
+    Alter(TemplatePlan plan)
     {
         var solution = Solution.CreateNew(plan.SourceDirectory, SolutionName);
         solution.Version = Version;

@@ -1,6 +1,5 @@
-using SunamoFubuCsProjFile._;
-
 namespace SunamoFubuCsProjFile._._NotMine;
+
 
 public static class DotNetVersion
 {
@@ -11,9 +10,9 @@ public static class DotNetVersion
 public class CsprojFile
 {
     /*
-         <RootNamespace>MyProject</RootNamespace>
-<AssemblyName>MyProject</AssemblyName>
-     */
+    <RootNamespace>MyProject</RootNamespace>
+    <AssemblyName>MyProject</AssemblyName>
+    */
     private const string PROJECTGUID = "ProjectGuid";
     private const string ROOT_NAMESPACE = "RootNamespace";
     private const string ASSEMBLY_NAME = "AssemblyName";
@@ -33,9 +32,9 @@ public class CsprojFile
     /// <param name="fileName"></param>
     public CsprojFile(string fileName) : this(fileName, MSBuildProject.LoadFromAsync(fileName)
 #if ASYNC
-.Result
+    .Result
 #endif
-)
+    )
     {
     }
 
@@ -57,15 +56,15 @@ public class CsprojFile
         get
         {
             var raw = BuildProject.PropertyGroups.Select(x => x.GetPropertyValue(PROJECTGUID))
-                .FirstOrDefault(x => x.IsNotEmpty());
+            .FirstOrDefault(x => x.IsNotEmpty());
 
             return raw.IsEmpty() ? Guid.Empty : Guid.Parse(raw.TrimStart('{').TrimEnd('}'));
         }
         set
         {
             var group = BuildProject.PropertyGroups.FirstOrDefault(
-                            x => x.Properties.Any(p => p.Name == PROJECTGUID))
-                        ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
+            x => x.Properties.Any(p => p.Name == PROJECTGUID))
+            ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
 
             group.SetPropertyValue(PROJECTGUID, value.ToString().ToUpper(), true);
         }
@@ -76,16 +75,16 @@ public class CsprojFile
         get
         {
             var group = BuildProject.PropertyGroups.FirstOrDefault(x =>
-                            x.Properties.Any(p => p.Name == ASSEMBLY_NAME))
-                        ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
+            x.Properties.Any(p => p.Name == ASSEMBLY_NAME))
+            ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
 
             return group.GetPropertyValue(ASSEMBLY_NAME);
         }
         set
         {
             var group = BuildProject.PropertyGroups.FirstOrDefault(x =>
-                            x.Properties.Any(p => p.Name == ASSEMBLY_NAME))
-                        ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
+            x.Properties.Any(p => p.Name == ASSEMBLY_NAME))
+            ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
             group.SetPropertyValue(ASSEMBLY_NAME, value, true);
         }
     }
@@ -95,16 +94,16 @@ public class CsprojFile
         get
         {
             var group = BuildProject.PropertyGroups.FirstOrDefault(x =>
-                            x.Properties.Any(p => p.Name == ROOT_NAMESPACE))
-                        ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
+            x.Properties.Any(p => p.Name == ROOT_NAMESPACE))
+            ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
 
             return group.GetPropertyValue(ROOT_NAMESPACE);
         }
         set
         {
             var group = BuildProject.PropertyGroups.FirstOrDefault(x =>
-                            x.Properties.Any(p => p.Name == ROOT_NAMESPACE))
-                        ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
+            x.Properties.Any(p => p.Name == ROOT_NAMESPACE))
+            ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
             group.SetPropertyValue(ROOT_NAMESPACE, value, true);
         }
     }
@@ -124,13 +123,13 @@ public class CsprojFile
         get
         {
             return BuildProject.PropertyGroups.Select(x => x.GetPropertyValue("TargetFrameworkVersion"))
-                .FirstOrDefault(x => x.IsNotEmpty());
+            .FirstOrDefault(x => x.IsNotEmpty());
         }
         set
         {
             var group = BuildProject.PropertyGroups.FirstOrDefault(x =>
-                            x.Properties.Any(p => p.Name == "TargetFrameworkVersion"))
-                        ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
+            x.Properties.Any(p => p.Name == "TargetFrameworkVersion"))
+            ?? BuildProject.PropertyGroups.FirstOrDefault() ?? BuildProject.AddNewPropertyGroup(true);
 
             group.SetPropertyValue("TargetFrameworkVersion", value, true);
         }
@@ -195,7 +194,7 @@ public class CsprojFile
     private static CsprojFile CreateCore(MSBuildProject project, string fileName)
     {
         var group = project.PropertyGroups.FirstOrDefault(x => x.Properties.Any(p => p.Name == PROJECTGUID)) ??
-                    project.PropertyGroups.FirstOrDefault() ?? project.AddNewPropertyGroup(true);
+        project.PropertyGroups.FirstOrDefault() ?? project.AddNewPropertyGroup(true);
 
         group.SetPropertyValue(PROJECTGUID, Guid.NewGuid().ToString().ToUpper(), true);
 
@@ -207,7 +206,7 @@ public class CsprojFile
     public void Add<T>(T item) where T : ProjectItem
     {
         var group = BuildProject.FindGroup(item.Matches) ??
-                    BuildProject.FindGroup(x => x.Name == item.Name) ?? BuildProject.AddNewItemGroup();
+        BuildProject.FindGroup(x => x.Name == item.Name) ?? BuildProject.AddNewItemGroup();
         item.Configure(group);
     }
 
@@ -227,22 +226,22 @@ public class CsprojFile
         var name = new T().Name;
 
         return BuildProject.GetAllItems(name).OrderBy(x => x.Include)
-            .Select(item =>
+        .Select(item =>
+        {
+            T projectItem;
+            if (_projectItemCache.ContainsKey(item.Include))
             {
-                T projectItem;
-                if (_projectItemCache.ContainsKey(item.Include))
-                {
-                    projectItem = (T)_projectItemCache[item.Include];
-                }
-                else
-                {
-                    projectItem = new T();
-                    projectItem.Read(item);
-                    _projectItemCache.Add(item.Include, projectItem);
-                }
+                projectItem = (T)_projectItemCache[item.Include];
+            }
+            else
+            {
+                projectItem = new T();
+                projectItem.Read(item);
+                _projectItemCache.Add(item.Include, projectItem);
+            }
 
-                return projectItem;
-            });
+            return projectItem;
+        });
     }
 
 
@@ -253,17 +252,17 @@ public class CsprojFile
     /// <param name="directory"></param>
     public static
 #if ASYNC
-async Task<CsprojFile>
+    async Task<CsprojFile>
 #else
-  CsprojFile
+CsprojFile
 #endif
-LoadFrom(string filename)
+    LoadFrom(string filename)
     {
         var project =
 #if ASYNC
-await
+        await
 #endif
-MSBuildProject.LoadFromAsync(filename);
+        MSBuildProject.LoadFromAsync(filename);
         return new CsprojFile(filename, project);
     }
 
@@ -289,8 +288,8 @@ MSBuildProject.LoadFromAsync(filename);
     public IEnumerable<Guid> ProjectTypes()
     {
         var raws =
-            BuildProject.PropertyGroups.Select(x => x.GetPropertyValue(cProjectTypeGuids))
-                .Where(x => x.IsNotEmpty());
+        BuildProject.PropertyGroups.Select(x => x.GetPropertyValue(cProjectTypeGuids))
+        .Where(x => x.IsNotEmpty());
 
         if (raws.Any())
             foreach (var raw in raws)

@@ -1,6 +1,5 @@
-using SunamoFubuCsProjFile._._NotMine.Consts;
-
 namespace SunamoFubuCsProjFile._._NotMine;
+
 
 public class ProjectReference : ProjectItem
 {
@@ -9,15 +8,15 @@ public class ProjectReference : ProjectItem
     }
 
     public ProjectReference(string include)
-        : base(ItemGroupsConsts.ProjectReference, include)
+    : base(ItemGroupsConsts.ProjectReference, include)
     {
     }
 
     public ProjectReference(CsprojFile targetProject, CsprojFile reference) : base(
-        ItemGroupsConsts.ProjectReference)
+    ItemGroupsConsts.ProjectReference)
     {
         Include = Path.Combine(reference.ProjectDirectory.PathRelativeTo(targetProject.ProjectDirectory),
-            Path.GetFileName(reference.FileName));
+        Path.GetFileName(reference.FileName));
         ProjectGuid = reference.ProjectGuid;
         ProjectName = reference.ProjectName;
     }
@@ -26,13 +25,13 @@ public class ProjectReference : ProjectItem
     public string ProjectName { get; set; }
 
     /*
-     * 
-<ProjectReference Include="..\FubuCsprojFile\FubuCsprojFile.csproj">
-  <Project>{5630FC3F-8C3E-4EAD-B960-B38FE3D87463}</Project>
-  <Name>FubuCsprojFile</Name>
-</ProjectReference>
-     * 
-     */
+    *
+    <ProjectReference Include="..\FubuCsprojFile\FubuCsprojFile.csproj">
+    <Project>{5630FC3F-8C3E-4EAD-B960-B38FE3D87463}</Project>
+    <Name>FubuCsprojFile</Name>
+    </ProjectReference>
+    *
+    */
 
     public override MSBuildItem Configure(MSBuildItemGroup group)
     {

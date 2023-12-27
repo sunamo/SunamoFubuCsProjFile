@@ -55,7 +55,7 @@ public class TemplateLogger : ITemplateLogger
         _stopwatch.Stop();
 
         ConsoleWriter.Write(ConsoleColor.Green,
-            "Templating successful in {0} ms".ToFormat(_stopwatch.ElapsedMilliseconds));
+        "Templating successful in {0} ms".ToFormat(_stopwatch.ElapsedMilliseconds));
     }
 
     public void WriteSuccess(string message)

@@ -1,6 +1,7 @@
-using FubuCsprojFile;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+
+
 
 public class Input
 {
@@ -18,11 +19,11 @@ public class Input
 
     public
 #if ASYNC
-async Task
+    async Task
 #else
-void  
+void
 #endif
-        Init()
+    Init()
     {
         var parts = text.ToDelimitedArray();
         if (parts.First().Contains("="))
@@ -45,11 +46,11 @@ void
 
     public static
 #if ASYNC
-async Task<IEnumerable<Input>>
+    async Task<IEnumerable<Input>>
 #else
-  IEnumerable<Input>
+IEnumerable<Input>
 #endif
-ReadFrom(string directory)
+    ReadFrom(string directory)
     {
         var fileSystem = new FileSystem();
         var file = directory.AppendPath(File);
@@ -64,25 +65,25 @@ ReadFrom(string directory)
         //var r2 = await joined;
         //return r2;
 #else
-        return ReadFromFile(file);
+return ReadFromFile(file);
 #endif
     }
 
     public static
 #if ASYNC
-async Task<IEnumerable<Input>>
+    async Task<IEnumerable<Input>>
 #else
-  IEnumerable<Input>
+IEnumerable<Input>
 #endif
-ReadFromFile(string file)
+    ReadFromFile(string file)
     {
         var result =
-(
+        (
 #if ASYNC
-await
+        await
 #endif
-new FileSystem().ReadStringFromFile(file)).ReadLines().Where(x => x.IsNotEmpty())
-            .Select(x => new Input(x));
+        new FileSystem().ReadStringFromFile(file)).ReadLines().Where(x => x.IsNotEmpty())
+        .Select(x => new Input(x));
 
         return result;
     }

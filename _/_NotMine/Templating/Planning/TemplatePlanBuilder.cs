@@ -1,7 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine;
-using SunamoFubuCsProjFile._._NotMine.Templating;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Planning;
+
+
 
 public class TemplatePlanBuilder
 {
@@ -13,7 +12,7 @@ public class TemplatePlanBuilder
     }
 
 
-    // TODO -- do a bulk validation of TemplateRequest against the library 
+    // TODO -- do a bulk validation of TemplateRequest against the library
     public TemplatePlan BuildPlan(TemplateRequest request)
     {
         var plan = new TemplatePlan(request.RootDirectory);
@@ -44,11 +43,11 @@ public class TemplatePlanBuilder
 
     private
 #if ASYNC
-async Task
+    async Task
 #else
-void  
+void
 #endif
-buildProjectPlan(TemplatePlan plan, ProjectRequest proj)
+    buildProjectPlan(TemplatePlan plan, ProjectRequest proj)
     {
         var projectPlan = new ProjectPlan(proj.Name) { DotNetVersion = proj.Version ?? DotNetVersion.V40 };
         plan.Add(projectPlan);
@@ -59,33 +58,33 @@ buildProjectPlan(TemplatePlan plan, ProjectRequest proj)
         if (proj.Template.IsNotEmpty())
             planner.CreatePlan(
 #if ASYNC
-await
+            await
 #endif
-_library.Find(TemplateType.Project, proj.Template), plan);
+            _library.Find(TemplateType.Project, proj.Template), plan);
 
         (
 #if ASYNC
-                    await
+        await
 #endif
-                 _library.Find(TemplateType.Alteration, proj.Alterations))
-                        .Each(template => planner.CreatePlan(template, plan));
+        _library.Find(TemplateType.Alteration, proj.Alterations))
+        .Each(template => planner.CreatePlan(template, plan));
     }
 
     private
 #if ASYNC
-async Task
+    async Task
 #else
-void  
+void
 #endif
-applySolutionTemplates(TemplateRequest request, TemplatePlan plan)
+    applySolutionTemplates(TemplateRequest request, TemplatePlan plan)
     {
         var planner = new SolutionPlanner();
         (
 #if ASYNC
         await
 #endif
-     _library.Find(TemplateType.Solution, request.Templates))
-            .Each(template => planner.CreatePlan(template, plan));
+        _library.Find(TemplateType.Solution, request.Templates))
+        .Each(template => planner.CreatePlan(template, plan));
     }
 
     private static void determineSolutionFileHandling(TemplateRequest request, TemplatePlan plan)

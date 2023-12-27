@@ -5,7 +5,7 @@ public class MSBuildItemGroup : MSBuildObject
     private readonly MSBuildProject parent;
 
     public MSBuildItemGroup(MSBuildProject parent, XmlElement elem)
-        : base(elem)
+    : base(elem)
     {
         this.parent = parent;
     }

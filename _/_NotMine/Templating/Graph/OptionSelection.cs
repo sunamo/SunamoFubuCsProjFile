@@ -18,8 +18,8 @@ public class OptionSelection : DescribesItself
         choices.Options = choices.Options ?? new string[0];
 
         var option = choices.Selections.Has(Name)
-            ? FindOption(choices.Selections[Name])
-            : Options.FirstOrDefault(x => choices.Options.Any(o => o.EqualsIgnoreCase(x.Name))) ?? Options.First();
+        ? FindOption(choices.Selections[Name])
+        : Options.FirstOrDefault(x => choices.Options.Any(o => o.EqualsIgnoreCase(x.Name))) ?? Options.First();
 
         request.Alterations.AddRange(option.Alterations);
     }

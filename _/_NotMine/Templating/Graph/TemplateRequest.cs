@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine.Templating;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+
 
 public class TemplateRequest
 {
@@ -71,48 +71,48 @@ public class TemplateRequest
 
     public
 #if ASYNC
-async Task<IEnumerable<MissingTemplate>>
+    async Task<IEnumerable<MissingTemplate>>
 #else
-  IEnumerable<MissingTemplate>
+IEnumerable<MissingTemplate>
 #endif
-Validate(ITemplateLibrary templates)
+    Validate(ITemplateLibrary templates)
     {
         var solutionErrors =
 #if ASYNC
-await
+        await
 #endif
-templates.Validate(TemplateType.Solution, _templates.ToArray());
+        templates.Validate(TemplateType.Solution, _templates.ToArray());
         var projectErrors =
 #if ASYNC
-await
+        await
 #endif
-templates.Validate(TemplateType.Project, _projects.Select(x => x.Template).ToArray());
+        templates.Validate(TemplateType.Project, _projects.Select(x => x.Template).ToArray());
         var alterationErrors =
 #if ASYNC
-await
+        await
 #endif
-templates.Validate(TemplateType.Alteration,
-            _projects.SelectMany(x => x.Alterations).ToArray());
+        templates.Validate(TemplateType.Alteration,
+        _projects.SelectMany(x => x.Alterations).ToArray());
 
         var testingErrors =
 #if ASYNC
-await
+        await
 #endif
-templates.Validate(TemplateType.Project,
-            _testingProjects.Select(x => x.Template).ToArray());
+        templates.Validate(TemplateType.Project,
+        _testingProjects.Select(x => x.Template).ToArray());
 
         var testingAlterationErrors =
 #if ASYNC
-await
+        await
 #endif
-templates.Validate(TemplateType.Alteration,
-            _testingProjects.SelectMany(x => x.Alterations).ToArray());
+        templates.Validate(TemplateType.Alteration,
+        _testingProjects.SelectMany(x => x.Alterations).ToArray());
 
 
         return solutionErrors
-            .Union(projectErrors)
-            .Union(alterationErrors)
-            .Union(testingErrors)
-            .Union(testingAlterationErrors);
+        .Union(projectErrors)
+        .Union(alterationErrors)
+        .Union(testingErrors)
+        .Union(testingAlterationErrors);
     }
 }

@@ -13,18 +13,18 @@ public class CopyFileToProject : IProjectAlteration
 
     public
 #if ASYNC
-async Task
+    async Task
 #else
 void
 #endif
-Alter(CsprojFile file, ProjectPlan plan)
+    Alter(CsprojFile file, ProjectPlan plan)
     {
         var fileSystem = new FileSystem();
         var rawText =
 #if ASYNC
-await
+        await
 #endif
-fileSystem.ReadStringFromFile(_source);
+        fileSystem.ReadStringFromFile(_source);
 
         var templatedText = plan.ApplySubstitutions(rawText, _relativePath);
 
@@ -34,7 +34,7 @@ fileSystem.ReadStringFromFile(_source);
 #if ASYNC
         await
 #endif
-     fileSystem.WriteStringToFile(expectedPath, templatedText);
+        fileSystem.WriteStringToFile(expectedPath, templatedText);
 
         file.Add(new Content(_relativePath));
     }

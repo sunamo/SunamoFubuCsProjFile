@@ -33,7 +33,7 @@ public abstract class ProjectItem
     public virtual MSBuildItem Configure(MSBuildItemGroup group)
     {
         var item = group.Items.FirstOrDefault(Matches)
-                   ?? group.AddNewItem(Name, Include);
+        ?? group.AddNewItem(Name, Include);
 
         BuildItem = item;
         return item;

@@ -23,11 +23,11 @@ public class CodeFileTemplate : IProjectAlteration
 
     public
 #if ASYNC
-async Task
+    async Task
 #else
 void
 #endif
-Alter(CsprojFile file, ProjectPlan plan)
+    Alter(CsprojFile file, ProjectPlan plan)
     {
         var includePath = plan.ApplySubstitutions(RelativePath);
         var filename = file.FileName.ParentDirectory().AppendPath(includePath);
@@ -40,7 +40,7 @@ Alter(CsprojFile file, ProjectPlan plan)
 #if ASYNC
         await
 #endif
-                fs.WriteStringToFile(filename, text);
+        fs.WriteStringToFile(filename, text);
 
         file.Add<CodeFile>(includePath);
     }
@@ -50,9 +50,9 @@ Alter(CsprojFile file, ProjectPlan plan)
         var @class = Path.GetFileNameWithoutExtension(relativePath);
 
         var rawText = Assembly.GetExecutingAssembly()
-            .GetManifestResourceStream(typeof(CodeFileTemplate), "Class.txt")
-            .ReadAllText()
-            .Replace(CLASS, @class);
+        .GetManifestResourceStream(typeof(CodeFileTemplate), "Class.txt")
+        .ReadAllText()
+        .Replace(CLASS, @class);
 
         if (Path.GetExtension(relativePath) != ".cs") relativePath = relativePath + ".cs";
 

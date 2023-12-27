@@ -1,7 +1,6 @@
-using SunamoFubuCsProjFile._._;
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._;
+
+
 
 public class AssemblyInfoFubu : CodeFile
 {
@@ -66,19 +65,19 @@ public class AssemblyInfoFubu : CodeFile
 
     public
 #if ASYNC
-async Task
+    async Task
 #else
 void
 #endif
-Initialize()
+    Initialize()
     {
         if (_fileSystem.FileExists(FullPath))
         {
             Lines = (
 #if ASYNC
-await
+            await
 #endif
-_fileSystem.ReadStringFromFile(FullPath)).SplitOnNewLine();
+            _fileSystem.ReadStringFromFile(FullPath)).SplitOnNewLine();
             Parse("AssemblyVersion", value => AssemblyVersion = new Version(value.ExtractVersion()), Lines);
             Parse("AssemblyFileVersion", value => AssemblyFileVersion = new Version(value.ExtractVersion()), Lines);
             Parse("AssemblyTitle", value => AssemblyTitle = GetValueBetweenQuotes(value), Lines);
@@ -88,7 +87,7 @@ _fileSystem.ReadStringFromFile(FullPath)).SplitOnNewLine();
             Parse("AssemblyProduct", value => AssemblyProduct = GetValueBetweenQuotes(value), Lines);
             Parse("AssemblyCopyright", value => AssemblyCopyright = GetValueBetweenQuotes(value), Lines);
             Parse("AssemblyInformationalVersion",
-                value => AssemblyInformationalVersion = GetValueBetweenQuotes(value), Lines);
+            value => AssemblyInformationalVersion = GetValueBetweenQuotes(value), Lines);
         }
     }
 

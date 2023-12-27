@@ -1,6 +1,6 @@
-using FubuCsprojFile;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+
 
 public class RakeFileTransform : ITemplateStep
 {
@@ -14,8 +14,8 @@ public class RakeFileTransform : ITemplateStep
     }
 
     public
-void
-Alter(TemplatePlan plan)
+    void
+    Alter(TemplatePlan plan)
     {
         var lines = plan.ApplySubstitutions(_text).SplitOnNewLine();
 
@@ -24,18 +24,18 @@ Alter(TemplatePlan plan)
 
 
         var list =
-            fileSystem.FileExists(rakeFile)
-                ?
-//must have .Result. RakeFileTransform.Alter should use await but in 10 other occurences they don't
-//A to to celé brutálně zesložiťuje
-fileSystem.ReadStringFromFile(rakeFile)
+        fileSystem.FileExists(rakeFile)
+        ?
+        //must have .Result. RakeFileTransform.Alter should use await but in 10 other occurences they don't
+        //A to to celé brutálně zesložiťuje
+        fileSystem.ReadStringFromFile(rakeFile)
 
 #if ASYNC
- .Result
+        .Result
 #endif
 
-.ReadLines().ToList()
-                : new List<string>();
+        .ReadLines().ToList()
+        : new List<string>();
 
         if (list.ContainsSequence(lines)) return;
 

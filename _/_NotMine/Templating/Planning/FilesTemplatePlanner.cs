@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine.Templating;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Planning;
+
+
 
 public class FilesTemplatePlanner : ITemplatePlanner
 {
@@ -16,11 +16,11 @@ public class FilesTemplatePlanner : ITemplatePlanner
     public void DetermineSteps(string directory, TemplatePlan plan)
     {
         TextFile.FileSystem.FindFiles(directory, _matching)
-            .Select(x => new TextFile(x, x.PathRelativeTo(directory)))
-            .Each(file =>
-            {
-                _action(file, plan);
-                plan.MarkHandled(file.Path);
-            });
+        .Select(x => new TextFile(x, x.PathRelativeTo(directory)))
+        .Each(file =>
+        {
+            _action(file, plan);
+            plan.MarkHandled(file.Path);
+        });
     }
 }

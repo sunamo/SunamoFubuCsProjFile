@@ -3,7 +3,7 @@ namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
 public class MSBuildItem : MSBuildObject
 {
     public MSBuildItem(XmlElement elem)
-        : base(elem)
+    : base(elem)
     {
     }
 
@@ -73,7 +73,7 @@ public class MSBuildItem : MSBuildObject
         if (Element.ParentNode != null)
         {
             if (Element.ParentNode.ChildNodes.Count == 1 &&
-                Element.ParentNode.ParentNode != null) // last element in node
+            Element.ParentNode.ParentNode != null) // last element in node
                 Element.ParentNode.ParentNode.RemoveChild(Element.ParentNode);
             else
                 Element.ParentNode.RemoveChild(Element);

@@ -1,6 +1,5 @@
-using SunamoFubuCsProjFile._._NotMine.Consts;
-
 namespace SunamoFubuCsProjFile._._NotMine;
+
 
 public class CodeFile : ProjectItem
 {

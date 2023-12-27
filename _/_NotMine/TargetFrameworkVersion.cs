@@ -1,7 +1,7 @@
 namespace SunamoFubuCsProjFile._._NotMine;
 
 public class TargetFrameworkVersion : IEquatable<TargetFrameworkVersion>, IComparable,
-    IComparable<TargetFrameworkVersion>
+IComparable<TargetFrameworkVersion>
 {
     private static Type type = typeof(TargetFrameworkVersion);
     private readonly Version version;

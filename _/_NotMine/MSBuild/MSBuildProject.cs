@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._;
-
 namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
+
+
 
 public class MSBuildProject
 {
@@ -123,7 +123,7 @@ public class MSBuildProject
     private static MSBuildProject create(string assemblyName, string text)
     {
         text = text
-            .Replace("FUBUPROJECTNAME", assemblyName);
+        .Replace("FUBUPROJECTNAME", assemblyName);
 
 
         var project = new MSBuildProject();
@@ -139,17 +139,17 @@ public class MSBuildProject
 
     public static
 #if ASYNC
-async Task<MSBuildProject>
+    async Task<MSBuildProject>
 #else
 MSBuildProject
 #endif
-CreateFromFile(string assemblyName, string file)
+    CreateFromFile(string assemblyName, string file)
     {
         var text =
 #if ASYNC
-await
+        await
 #endif
-TextFile.FileSystem.ReadStringFromFile(file);
+        TextFile.FileSystem.ReadStringFromFile(file);
         return create(assemblyName, text);
     }
 
@@ -171,23 +171,23 @@ TextFile.FileSystem.ReadStringFromFile(file);
 #if ASYNC
     public
 #if ASYNC
-        async Task<ResultWithException<XmlDocument>>
+    async Task<ResultWithException<XmlDocument>>
 #else
-        ResultWithException<XmlDocument>
+ResultWithException<XmlDocument>
 #endif
-         LoadAsync(string file)
+    LoadAsync(string file)
     {
         return
 #if ASYNC
-await
+        await
 #endif
-             XmlDocumentsCache.Get(file);
+        XmlDocumentsCache.Get(file);
     }
 #else
-    public ResultWithException<XmlDocument> Load(string file)
-    {
-        return XmlDocumentsCache.Get(file);
-    }
+public ResultWithException<XmlDocument> Load(string file)
+{
+return XmlDocumentsCache.Get(file);
+}
 #endif
 
     public void Save(string fileName)
@@ -200,7 +200,7 @@ await
             {
                 XmlElement[] elements = null;
                 elements = group.Items.Select(x => x.Element)
-                    .OrderBy(x => x.GetAttribute(ItemGroupAttrsConsts.Include)).ToArray();
+    .OrderBy(x => x.GetAttribute(ItemGroupAttrsConsts.Include)).ToArray();
 
                 group.Element.RemoveAll();
 
@@ -217,7 +217,7 @@ await
             content += newLine;
 
         var shouldSave = !Settings.OnlySaveIfChanged ||
-                         File.Exists(fileName) && !TFSE.ReadAllText(fileName).Equals(content);
+        File.Exists(fileName) && !TFSE.ReadAllText(fileName).Equals(content);
 
         if (shouldSave)
             new FileSystem().WriteStringToFile(fileName, content);
@@ -238,8 +238,8 @@ await
     public void RemoveImport(string name)
     {
         var elem =
-            (XmlElement)
-            doc.DocumentElement.SelectSingleNode("tns:Import[@Project='" + name + "']", XmlNamespaceManager);
+        (XmlElement)
+        doc.DocumentElement.SelectSingleNode("tns:Import[@Project='" + name + "']", XmlNamespaceManager);
         if (elem != null)
             elem.ParentNode.RemoveChild(elem);
         else
@@ -265,7 +265,7 @@ await
         if (platform == null) platform = GetGlobalPropertyGroup().GetPropertyValue("Platform");
 
         return PropertyGroups.First(item => item.Condition.Contains(string.Format("{0}|{1}", "Debug", platform),
-            StringComparison.InvariantCultureIgnoreCase));
+        StringComparison.InvariantCultureIgnoreCase));
     }
 
     /// <summary>
@@ -277,7 +277,7 @@ await
         if (platform == null) platform = GetGlobalPropertyGroup().GetPropertyValue("Platform");
 
         return PropertyGroups.First(item => item.Condition.Contains(string.Format("{0}|{1}", "Release", platform),
-            StringComparison.InvariantCultureIgnoreCase));
+        StringComparison.InvariantCultureIgnoreCase));
     }
 
     public MSBuildPropertyGroup AddNewPropertyGroup(bool insertAtEnd)
@@ -287,15 +287,15 @@ await
         if (insertAtEnd)
         {
             var last =
-                doc.DocumentElement.SelectSingleNode("tns:PropertyGroup[last()]",
-                    XmlNamespaceManager) as XmlElement;
+            doc.DocumentElement.SelectSingleNode("tns:PropertyGroup[last()]",
+            XmlNamespaceManager) as XmlElement;
             if (last != null)
                 doc.DocumentElement.InsertAfter(elem, last);
         }
         else
         {
             var first = doc.DocumentElement.SelectSingleNode("tns:PropertyGroup",
-                XmlNamespaceManager) as XmlElement;
+            XmlNamespaceManager) as XmlElement;
             if (first != null)
                 doc.DocumentElement.InsertBefore(elem, first);
         }
@@ -330,7 +330,7 @@ await
     {
         var name = string.Join("|tns:ItemGroup/tns:", names);
         foreach (
-            XmlElement elem in doc.DocumentElement.SelectNodes("tns:ItemGroup/tns:" + name, XmlNamespaceManager))
+        XmlElement elem in doc.DocumentElement.SelectNodes("tns:ItemGroup/tns:" + name, XmlNamespaceManager))
             yield return GetItem(elem);
     }
 
@@ -377,8 +377,8 @@ await
     public string GetProjectExtensions(string section)
     {
         var elem =
-            doc.DocumentElement.SelectSingleNode("tns:ProjectExtensions/tns:" + section, XmlNamespaceManager) as
-                XmlElement;
+        doc.DocumentElement.SelectSingleNode("tns:ProjectExtensions/tns:" + section, XmlNamespaceManager) as
+        XmlElement;
         if (elem != null)
             return elem.InnerXml;
         return string.Empty;
@@ -406,8 +406,8 @@ await
     public void RemoveProjectExtensions(string section)
     {
         var elem =
-            doc.DocumentElement.SelectSingleNode("tns:ProjectExtensions/tns:" + section, XmlNamespaceManager) as
-                XmlElement;
+        doc.DocumentElement.SelectSingleNode("tns:ProjectExtensions/tns:" + section, XmlNamespaceManager) as
+        XmlElement;
         if (elem != null)
         {
             var parent = (XmlElement)elem.ParentNode;
@@ -488,18 +488,18 @@ await
 
     public static
 #if ASYNC
-async Task<MSBuildProject>
+    async Task<MSBuildProject>
 #else
 MSBuildProject
 #endif
-LoadFromAsync(string fileName)
+    LoadFromAsync(string fileName)
     {
         var project = new MSBuildProject();
 
 #if ASYNC
         await project.LoadAsync(fileName);
 #else
-        project.Load(fileName);
+project.Load(fileName);
 #endif
 
         return project;

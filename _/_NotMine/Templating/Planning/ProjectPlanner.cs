@@ -11,11 +11,11 @@ public class ProjectPlanner : TemplatePlanner
 
     public
 #if ASYNC
- async Task
+    async Task
 #else
-void  
+void
 #endif
-        Init()
+    Init()
     {
         ShallowMatch(Substitutions.ConfigFile).Do = (file, plan) =>
         {
@@ -24,17 +24,17 @@ void
 
         ShallowMatch(Input.File).Do =
 #if ASYNC
-async
+        async
 #endif
-(file, plan) =>
-                {
-                    var inputs =
+        (file, plan) =>
+        {
+            var inputs =
 #if ASYNC
-await
+    await
 #endif
-Input.ReadFromFile(file.Path);
-                    plan.CurrentProject.Substitutions.ReadInputs(inputs, plan.MissingInputs.Add);
-                };
+    Input.ReadFromFile(file.Path);
+            plan.CurrentProject.Substitutions.ReadInputs(inputs, plan.MissingInputs.Add);
+        };
 
         Matching(FileSet.Shallow(ProjectPlan.TemplateFile)).Do = (file, plan) =>
         {
@@ -43,70 +43,70 @@ Input.ReadFromFile(file.Path);
 
         Matching(FileSet.Shallow(NugetFile)).Do =
 #if ASYNC
-async
+        async
 #endif
-(file, plan) =>
+        (file, plan) =>
         {
             (
 #if ASYNC
-            await
+    await
 #endif
-         file.ReadLines())
-                .Where(x => x.IsNotEmpty())
-                .Each(line => plan.CurrentProject.NugetDeclarations.Add(line.Trim()));
+    file.ReadLines())
+    .Where(x => x.IsNotEmpty())
+    .Each(line => plan.CurrentProject.NugetDeclarations.Add(line.Trim()));
         };
 
         Matching(FileSet.Shallow(AssemblyInfoAlteration.SourceFile)).Do =
 #if ASYNC
-async
+        async
 #endif
-(file, plan) =>
+        (file, plan) =>
         {
             var additions = (
 #if ASYNC
-await
+    await
 #endif
-file.ReadLines()).Where(x => x.IsNotEmpty()).ToArray();
+    file.ReadLines()).Where(x => x.IsNotEmpty()).ToArray();
             plan.CurrentProject.Add(new AssemblyInfoAlteration(additions));
         };
 
         Matching(FileSet.Shallow(SystemReference.SourceFile)).Do =
 #if ASYNC
-async
+        async
 #endif
- (file, plan) =>
+        (file, plan) =>
         {
             (
 #if ASYNC
-            await
+    await
 #endif
 
-                        file.ReadLines())
-                .Where(x => x.IsNotEmpty())
-                .Each(assem => plan.CurrentProject.Add(new SystemReference(assem)));
+    file.ReadLines())
+    .Where(x => x.IsNotEmpty())
+    .Each(assem => plan.CurrentProject.Add(new SystemReference(assem)));
         };
 
         Matching(FileSet.Deep("*.cs")).Do = async (file, plan) =>
         {
             var template = new CodeFileTemplate(file.RelativePath,
 #if ASYNC
-        await
+    await
 #endif
-        file.ReadAll());
+    file.ReadAll());
             plan.CurrentProject.Add(template);
         };
 
         ShallowMatch(TemplatePlan.InstructionsFile).Do =
 #if ASYNC
-async
+        async
 #endif
-(file, plan) =>
+        (file, plan) =>
         {
             var instructions =
 #if ASYNC
-await
+    await
 #endif
-file.ReadAll();
+    file.ReadAll();
             plan.AddInstructions(plan.ApplySubstitutions(instructions));
         };
     }

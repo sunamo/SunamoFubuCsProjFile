@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+
 
 public class AssemblyInfoAlteration : IProjectAlteration
 {
@@ -21,11 +21,11 @@ public class AssemblyInfoAlteration : IProjectAlteration
     /// <returns></returns>
     public
 #if ASYNC
-async Task
+    async Task
 #else
-void  
+void
 #endif
-Alter(CsprojFile file, ProjectPlan plan)
+    Alter(CsprojFile file, ProjectPlan plan)
     {
         var assemblyInfoPath = Path.Combine(AssemblyInfoPath);
         var codeFile = file.Find<CodeFile>(assemblyInfoPath) ?? file.Add<CodeFile>(assemblyInfoPath);
@@ -39,23 +39,23 @@ Alter(CsprojFile file, ProjectPlan plan)
 
     /// <summary>
     /// Must be async even if there is no await due to IProjectAlteration
-    /// 
+    ///
     /// </summary>
     /// <param name="contents"></param>
     /// <param name="plan"></param>
     /// <returns></returns>
     public
 #if ASYNC
-async Task
+    async Task
 #else
-void  
+void
 #endif
-Alter(List<string> contents, ProjectPlan plan)
+    Alter(List<string> contents, ProjectPlan plan)
     {
         _additions
-            .Select(x => plan.ApplySubstitutions(x))
-            .Where(x => !contents.Contains(x))
-            .Each(contents.Add);
+        .Select(x => plan.ApplySubstitutions(x))
+        .Where(x => !contents.Contains(x))
+        .Each(contents.Add);
     }
 
     public override string ToString()

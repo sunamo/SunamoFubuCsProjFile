@@ -1,6 +1,6 @@
-using FubuCsprojFile;
-
 namespace SunamoFubuCsProjFile._._;
+
+
 
 public class FrameworkNameDetector
 {
@@ -16,7 +16,7 @@ public class FrameworkNameDetector
     public static FrameworkName Detect(MSBuildProject project)
     {
         var group = project.PropertyGroups.FirstOrDefault(x =>
-            x.Properties.Any(p => p.Name.Contains("TargetFramework")));
+        x.Properties.Any(p => p.Name.Contains("TargetFramework")));
         var identifier = DefaultIdentifier;
         var versionString = DefaultFrameworkVersion;
         string profile = null;
@@ -44,17 +44,17 @@ public class FrameworkNameDetector
 
     public static
 #if ASYNC
-        async Task<Version>
+    async Task<Version>
 #else
-        Version 
+Version
 #endif
-        Detect(string path)
+    Detect(string path)
     {
         var msb = new MSBuildProject();
 #if ASYNC
         await msb.LoadAsync(path);
 #else
-        msb.Load(path);
+msb.Load(path);
 #endif
 
         return Detect(msb)?.Version;

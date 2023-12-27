@@ -35,10 +35,10 @@ public class Substitutions
     public void WriteTo(string file)
     {
         new FileSystem()
-            .WriteToFlatFile(file, writer => _values.Each((key, value) =>
-            {
-                if (key != TemplatePlan.INSTRUCTIONS) writer.WriteProperty(key, value);
-            }));
+        .WriteToFlatFile(file, writer => _values.Each((key, value) =>
+        {
+            if (key != TemplatePlan.INSTRUCTIONS) writer.WriteProperty(key, value);
+        }));
     }
 
     public bool Has(string key)

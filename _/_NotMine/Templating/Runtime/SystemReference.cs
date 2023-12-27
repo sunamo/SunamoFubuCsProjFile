@@ -19,11 +19,11 @@ public class SystemReference : IProjectAlteration
     /// <returns></returns>
     public
 #if ASYNC
-async Task
+    async Task
 #else
-void  
+void
 #endif
-Alter(CsprojFile file, ProjectPlan plan)
+    Alter(CsprojFile file, ProjectPlan plan)
     {
         file.Add<AssemblyReference>(AssemblyName);
     }

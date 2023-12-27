@@ -1,6 +1,5 @@
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
 
 public class CopyProjectReferences : ITemplateStep
 {
@@ -17,8 +16,8 @@ public class CopyProjectReferences : ITemplateStep
     /// <param name="plan"></param>
     /// <returns></returns>
     public
-void
-Alter(TemplatePlan plan)
+    void
+    Alter(TemplatePlan plan)
     {
         var original = plan.Solution.FindProject(OriginalProject).Project;
         var originalPlan = plan.FindProjectPlan(OriginalProject);
@@ -34,12 +33,12 @@ Alter(TemplatePlan plan)
     }
 
     private static void copyNugetDeclarations(ProjectPlan originalPlan, ProjectPlan testPlan, CsprojFile original,
-        CsprojFile testProject)
+    CsprojFile testProject)
     {
         originalPlan.NugetDeclarations.Each(x => testPlan.NugetDeclarations.Fill(x));
         original.All<AssemblyReference>()
-            .Where(x => x.HintPath.IsEmpty())
-            .Each(x => testProject.Add<AssemblyReference>(x.Include));
+        .Where(x => x.HintPath.IsEmpty())
+        .Each(x => testProject.Add<AssemblyReference>(x.Include));
     }
 
     private void findNugetsInOriginalRippleDeclarations(TemplatePlan plan, ProjectPlan testPlan)
@@ -55,9 +54,9 @@ Alter(TemplatePlan plan)
     {
         var relativePathToTheOriginal = original.FileName.PathRelativeTo(testProject.FileName);
         if (original.FileName.ParentDirectory().ParentDirectory() ==
-            testProject.FileName.ParentDirectory().ParentDirectory())
+        testProject.FileName.ParentDirectory().ParentDirectory())
             relativePathToTheOriginal = Path.Combine("..", Path.GetFileName(original.FileName.ParentDirectory()),
-                Path.GetFileName(original.FileName));
+            Path.GetFileName(original.FileName));
 
 
         var reference = new ProjectReference(relativePathToTheOriginal)

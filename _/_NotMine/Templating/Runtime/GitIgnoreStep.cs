@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine.Templating;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+
 
 public class GitIgnoreStep : ITemplateStep
 {
@@ -21,28 +21,28 @@ public class GitIgnoreStep : ITemplateStep
 
     /// <summary>
     /// Zatím bude sync, musím celý csproj více pochopit, vč. toho jak psát async
-    /// Kromě toho bych měl zjistit zda FubuCsProj nemá nové zdrojáky. Nebo to nahradit jinou knihovnou. 
+    /// Kromě toho bych měl zjistit zda FubuCsProj nemá nové zdrojáky. Nebo to nahradit jinou knihovnou.
     /// </summary>
     /// <param name="textFile"></param>
     /// <param name="plan"></param>
     public static
-//#if ASYNC
-//    async Task
-//#else
-//    void  
-//#endif
-void
-ConfigurePlan(TextFile textFile, TemplatePlan plan)
+    //#if ASYNC
+    //    async Task
+    //#else
+    //    void
+    //#endif
+    void
+    ConfigurePlan(TextFile textFile, TemplatePlan plan)
     {
         var ignores =
-//#if ASYNC
-//    await
-//#endif
-textFile.ReadLines()
+        //#if ASYNC
+        //    await
+        //#endif
+        textFile.ReadLines()
 #if ASYNC
-.Result
+        .Result
 #endif
-.Where(x => x.IsNotEmpty()).ToArray();
+        .Where(x => x.IsNotEmpty()).ToArray();
         var step = new GitIgnoreStep(ignores);
         plan.Add(step);
     }

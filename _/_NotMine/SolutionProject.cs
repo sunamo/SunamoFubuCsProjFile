@@ -1,9 +1,4 @@
-using FubuCsprojFile;
-
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._._NotMine;
-
 public class SolutionProject
 {
     public static string ProjectLineTemplate = "Project(\"{{{0}}}\") = \"{1}\", \"{2}\", \"{{{3}}}\"";
@@ -18,8 +13,8 @@ public class SolutionProject
         ProjectName = csProjFile.ProjectName;
         //FSXlf přemístit do SunamoExc. Xlf nemůže být includnutou do WithoutDep / notmine. To může být jedině SunamoExc
         RelativePath =
-            Path.GetRelativePath(solutionDirectory,
-                csProjFile.FileName); //csProjFile.FileName.PathRelativeTo(solutionDirectory);
+        Path.GetRelativePath(solutionDirectory,
+        csProjFile.FileName); //csProjFile.FileName.PathRelativeTo(solutionDirectory);
         ProjectType = csProjFile.ProjectTypes().LastOrDefault();
         _projectGuid = csProjFile.ProjectGuid;
     }
@@ -35,11 +30,11 @@ public class SolutionProject
 
     public
 #if ASYNC
-async Task
+    async Task
 #else
 void
 #endif
-        Init()
+    Init()
     {
         var parts = text.ToDelimitedArray('=');
         ProjectType = Guid.Parse(parts.First().TextBetweenSquiggles());
@@ -52,7 +47,7 @@ void
 
         _project = new Lazy<CsprojFile>(
 
-() =>
+        () =>
         {
             var filename = solutionDirectory.AppendPath(RelativePath);
 
@@ -60,11 +55,11 @@ void
             {
                 var projFile =
 
-CsprojFile.LoadFrom(filename)
+        CsprojFile.LoadFrom(filename)
 #if ASYNC
-.Result
+        .Result
 #endif
- ;
+        ;
                 InitializeFromSolution(projFile, Solution);
                 return projFile;
             }
@@ -92,7 +87,7 @@ CsprojFile.LoadFrom(filename)
     public IList<ProjectSection> ProjectSections { get; } = new List<ProjectSection>();
 
     public ProjectDependenciesSection ProjectDependenciesSection =>
-        ProjectSections.OfType<ProjectDependenciesSection>().FirstOrDefault();
+    ProjectSections.OfType<ProjectDependenciesSection>().FirstOrDefault();
 
     public static SolutionProject CreateNewAt(string solutionDirectory, string projectName)
     {
@@ -104,28 +99,28 @@ CsprojFile.LoadFrom(filename)
     private void InitializeFromSolution(CsprojFile projFile, Solution solution)
     {
         var tfsSourceControl =
-            solution.Sections.FirstOrDefault(section => section.SectionName.Equals("TeamFoundationVersionControl"));
+        solution.Sections.FirstOrDefault(section => section.SectionName.Equals("TeamFoundationVersionControl"));
         if (tfsSourceControl != null) InitializeTfsSourceControlSettings(projFile, solution, tfsSourceControl);
     }
 
     private void InitializeTfsSourceControlSettings(CsprojFile projFile, Solution solution,
-        GlobalSection tfsSourceControl)
+    GlobalSection tfsSourceControl)
     {
         var projUnique =
-            tfsSourceControl.Properties.FirstOrDefault(item => item.EndsWith(Path.GetFileName(projFile.FileName)));
+        tfsSourceControl.Properties.FirstOrDefault(item => item.EndsWith(Path.GetFileName(projFile.FileName)));
         if (projUnique == null) return;
 
         var index =
-            Convert.ToInt32(projUnique.Substring("SccProjectUniqueName".Length,
-                projUnique.IndexOf('=') - "SccProjectUniqueName".Length).Trim());
+        Convert.ToInt32(projUnique.Substring("SccProjectUniqueName".Length,
+        projUnique.IndexOf('=') - "SccProjectUniqueName".Length).Trim());
 
         projFile.SourceControlInformation = new SourceControlInformation(
-            tfsSourceControl.Properties.First(item => item.StartsWith("SccProjectUniqueName" + index)).Split('=')[1]
-                .Trim(),
-            tfsSourceControl.Properties.First(item => item.StartsWith("SccProjectName" + index)).Split('=')[1]
-                .Trim(),
-            tfsSourceControl.Properties.First(item => item.StartsWith("SccLocalPath" + index)).Split('=')[1]
-                .Trim());
+        tfsSourceControl.Properties.First(item => item.StartsWith("SccProjectUniqueName" + index)).Split('=')[1]
+        .Trim(),
+        tfsSourceControl.Properties.First(item => item.StartsWith("SccProjectName" + index)).Split('=')[1]
+        .Trim(),
+        tfsSourceControl.Properties.First(item => item.StartsWith("SccLocalPath" + index)).Split('=')[1]
+        .Trim());
     }
 
     public void Write(StringWriter writer)
@@ -137,7 +132,7 @@ CsprojFile.LoadFrom(filename)
 #endif
 
         writer.WriteLine(ProjectLineTemplate, ProjectType.ToString().ToUpper(), ProjectName,
-            RelativePath.Replace('/', Path.DirectorySeparatorChar), _projectGuid.ToString().ToUpper());
+        RelativePath.Replace('/', Path.DirectorySeparatorChar), _projectGuid.ToString().ToUpper());
 
         _directives.Each(x => writer.WriteLine(x));
         ProjectSections.Each(x => x.Write(writer));

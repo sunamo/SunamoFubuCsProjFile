@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine.Templating;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+
 
 public class Template
 {
@@ -11,16 +11,16 @@ public class Template
 
     public
 #if ASYNC
-async Task<IEnumerable<Input>>
+    async Task<IEnumerable<Input>>
 #else
-  IEnumerable<Input>
+IEnumerable<Input>
 #endif
-Inputs()
+    Inputs()
     {
         return
 #if ASYNC
-await
+        await
 #endif
-Input.ReadFrom(Path);
+        Input.ReadFrom(Path);
     }
 }

@@ -12,17 +12,17 @@ public class CopyFileToSolution : ITemplateStep
     }
 
     public
-void
-Alter(TemplatePlan plan)
+    void
+    Alter(TemplatePlan plan)
     {
         var expectedFile = plan.Root.AppendPath(_relativePath);
         var contents =
 
-plan.FileSystem.ReadStringFromFile(_source)
+        plan.FileSystem.ReadStringFromFile(_source)
 #if ASYNC
-.Result
+        .Result
 #endif
-;
+        ;
         var transformedContents = plan.ApplySubstitutions(contents);
 
         plan.FileSystem.WriteStringToFile(expectedFile, transformedContents);
@@ -31,7 +31,7 @@ plan.FileSystem.ReadStringFromFile(_source)
     protected bool Equals(CopyFileToSolution other)
     {
         return string.Equals(_relativePath, other._relativePath) &&
-               string.Equals(_source.CanonicalPath(), other._source.CanonicalPath());
+        string.Equals(_source.CanonicalPath(), other._source.CanonicalPath());
     }
 
     public override bool Equals(object obj)
@@ -47,7 +47,7 @@ plan.FileSystem.ReadStringFromFile(_source)
         unchecked
         {
             return (_relativePath != null ? _relativePath.GetHashCode() : 0) * 397 ^
-                   (_source != null ? _source.GetHashCode() : 0);
+            (_source != null ? _source.GetHashCode() : 0);
         }
     }
 

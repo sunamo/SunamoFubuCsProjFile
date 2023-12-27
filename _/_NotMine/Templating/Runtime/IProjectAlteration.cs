@@ -11,7 +11,7 @@ public interface IProjectAlteration
 #if ASYNC
     Task
 #else
-void  
+void
 #endif
-Alter(CsprojFile file, ProjectPlan plan);
+    Alter(CsprojFile file, ProjectPlan plan);
 }

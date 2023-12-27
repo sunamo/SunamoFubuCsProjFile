@@ -18,6 +18,6 @@ public class Ignored
     {
         if (path == null) return true;
         return path.Contains(StartWith.archived) || path.Contains(StartWith.uap) || path.Contains(StartWith.mixin) ||
-               path.EndsWith(EndsWith.vcxProj);
+        path.EndsWith(EndsWith.vcxProj);
     }
 }

@@ -19,9 +19,9 @@ public class BuildConfiguration
     public void WriteProjectConfiguration(SolutionProject solutionProject, GlobalSection section)
     {
         section.Read("\t\t{{{0}}}.{1}.ActiveCfg = {2}".ToFormat(solutionProject.ProjectGuid.ToString().ToUpper(),
-            Key, Value));
+        Key, Value));
         section.Read("\t\t{{{0}}}.{1}.Build.0 = {2}".ToFormat(solutionProject.ProjectGuid.ToString().ToUpper(), Key,
-            Value));
+        Value));
     }
 
     protected bool Equals(BuildConfiguration other)

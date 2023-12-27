@@ -63,9 +63,9 @@ public class ProjectPlan : ITemplateStep
                 // Must be .Result. See ITemplateStep why
                 reference = plan.Solution.AddProjectFromTemplate(ProjectName, ProjectTemplateFile)
 #if ASYNC
-.Result
+                .Result
 #endif
-;
+                ;
             }
 
             reference.Project.AssemblyName = reference.Project.RootNamespace = ProjectName;
@@ -124,12 +124,12 @@ public class ProjectPlan : ITemplateStep
     public static string GetNamespace(string relativePath, string projectName)
     {
         return relativePath
-            .Split('/')
-            .Reverse()
-            .Skip(1)
-            .Union(new[] { projectName })
-            .Reverse()
-            .Join(".");
+        .Split('/')
+        .Reverse()
+        .Skip(1)
+        .Union(new[] { projectName })
+        .Reverse()
+        .Join(".");
     }
 
     public override string ToString()

@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+
 
 public class ProjectDirectory : IProjectAlteration
 {
@@ -19,11 +19,11 @@ public class ProjectDirectory : IProjectAlteration
     /// <returns></returns>
     public
 #if ASYNC
-async Task
+    async Task
 #else
-void  
+void
 #endif
-Alter(CsprojFile file, ProjectPlan plan)
+    Alter(CsprojFile file, ProjectPlan plan)
     {
         TemplateLibrary.FileSystem.CreateDirectory(file.ProjectDirectory.AppendPath(RelativePath));
     }
@@ -49,7 +49,7 @@ Alter(CsprojFile file, ProjectPlan plan)
     public static IEnumerable<ProjectDirectory> PlanForDirectory(string root)
     {
         return Directory.GetDirectories(root, "*", SearchOption.AllDirectories)
-            .Select(dir => new ProjectDirectory(dir.PathRelativeTo(root)));
+        .Select(dir => new ProjectDirectory(dir.PathRelativeTo(root)));
     }
 
     public override string ToString()

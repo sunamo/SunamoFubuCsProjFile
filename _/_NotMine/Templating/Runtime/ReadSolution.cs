@@ -10,15 +10,15 @@ public class ReadSolution : ITemplateStep
     public string SolutionFile { get; }
 
     public
-void
-Alter(TemplatePlan plan)
+    void
+    Alter(TemplatePlan plan)
     {
         var solution =
-Solution.LoadFrom(SolutionFile)
+        Solution.LoadFrom(SolutionFile)
 #if ASYNC
-.Result
+        .Result
 #endif
-;
+        ;
         plan.Solution = solution;
     }
 

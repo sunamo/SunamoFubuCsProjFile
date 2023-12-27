@@ -16,31 +16,31 @@ public class TextFile
 
     public
 #if ASYNC
-async Task<string>
+    async Task<string>
 #else
-string  
+string
 #endif
-ReadAll()
+    ReadAll()
     {
         return
 #if ASYNC
-await
+        await
 #endif
-FileSystem.ReadStringFromFile(Path);
+        FileSystem.ReadStringFromFile(Path);
     }
 
     public
 #if ASYNC
-async Task<IEnumerable<string>>
+    async Task<IEnumerable<string>>
 #else
-  IEnumerable<string>
+IEnumerable<string>
 #endif
-ReadLines()
+    ReadLines()
     {
         return (
 #if ASYNC
-await
+        await
 #endif
-ReadAll()).Trim().SplitOnNewLine();
+        ReadAll()).Trim().SplitOnNewLine();
     }
 }

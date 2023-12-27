@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._._NotMine;
+
+
 
 public class Solution
 {
@@ -29,14 +29,14 @@ public class Solution
     static Solution()
     {
         _versionLines[VS2010] = new[]
-            { "Microsoft Visual Studio Solution File, Format Version 11.00", "# Visual Studio 2010" };
+        { "Microsoft Visual Studio Solution File, Format Version 11.00", "# Visual Studio 2010" };
         _versionLines[VS2012] = new[]
-            { "Microsoft Visual Studio Solution File, Format Version 12.00", "# Visual Studio 2012" };
+        { "Microsoft Visual Studio Solution File, Format Version 12.00", "# Visual Studio 2012" };
         _versionLines[VS2013] = new[]
         {
-            "Microsoft Visual Studio Solution File, Format Version 12.00", "# Visual Studio 2013",
-            "VisualStudioVersion = 12.0.21005.1", "MinimumVisualStudioVersion = 10.0.40219.1"
-        };
+"Microsoft Visual Studio Solution File, Format Version 12.00", "# Visual Studio 2013",
+"VisualStudioVersion = 12.0.21005.1", "MinimumVisualStudioVersion = 10.0.40219.1"
+};
     }
 
     private Solution(string filename, string text)
@@ -53,7 +53,7 @@ public class Solution
 #endif
 
         // zde je problém, .Each v Solution.cs (řádek 68) chce jen Action. avšak potřebuji Func aby mi to vrátilo task. Vkládaní do asynchronních lambd nejde. Jistě řešení to bude mít, ale já jako zelenáč v async to zatím nesvedu.
-        // 
+        //
 
         items.Each(reader.Read);
 
@@ -93,7 +93,7 @@ public class Solution
     public static Solution CreateNew(string directory, string name)
     {
         var text = Assembly.GetExecutingAssembly().GetManifestResourceStream(typeof(Solution), "Solution.txt")
-            .ReadAllText();
+        .ReadAllText();
 
         var filename = directory.AppendPath(name);
         if (Path.GetExtension(filename) != ".sln") filename = filename + ".sln";
@@ -110,11 +110,11 @@ public class Solution
     /// <param name="filename"></param>
     public static
 #if ASYNC
-async Task<Solution>
+    async Task<Solution>
 #else
-  Solution
+Solution
 #endif
-LoadFrom(string filename)
+    LoadFrom(string filename)
     {
 #if DEBUG
         if (filename == @"E:\vs\Projects\sunamoWithoutDep\sunamoWithoutDep.sln")
@@ -125,9 +125,9 @@ LoadFrom(string filename)
 
         var text =
 #if ASYNC
-await
+        await
 #endif
-new FileSystem().ReadStringFromFile(filename);
+        new FileSystem().ReadStringFromFile(filename);
         return new Solution(filename, text);
     }
 
@@ -135,8 +135,8 @@ new FileSystem().ReadStringFromFile(filename);
     {
         var section = FindSection(SolutionConfigurationPlatforms);
         return section == null
-            ? Enumerable.Empty<BuildConfiguration>()
-            : section.Properties.Select(x => new BuildConfiguration(x));
+        ? Enumerable.Empty<BuildConfiguration>()
+        : section.Properties.Select(x => new BuildConfiguration(x));
     }
 
     public GlobalSection FindSection(string name)
@@ -275,23 +275,23 @@ new FileSystem().ReadStringFromFile(filename);
     /// <param name="templateFile"></param>
     public
 #if ASYNC
-async Task<SolutionProject>
+    async Task<SolutionProject>
 #else
-  SolutionProject
+SolutionProject
 #endif
-AddProjectFromTemplate(string projectName, string templateFile)
+    AddProjectFromTemplate(string projectName, string templateFile)
     {
         var existing = FindProject(projectName);
         if (existing != null)
             ThrowEx.ArgumentOutOfRangeException("projectName",
-                "Project with this name ({0}) already exists in the solution".ToFormat(projectName));
+            "Project with this name ({0}) already exists in the solution".ToFormat(projectName));
 
 
         var project =
 #if ASYNC
-await
+        await
 #endif
-MSBuildProject.CreateFromFile(projectName, templateFile);
+        MSBuildProject.CreateFromFile(projectName, templateFile);
         var csProjFile = new CsprojFile(ParentDirectory.AppendPath(projectName, projectName + ".csproj"), project);
         csProjFile.ProjectGuid = Guid.NewGuid();
 
@@ -326,11 +326,11 @@ MSBuildProject.CreateFromFile(projectName, templateFile);
     public class SolutionReader
     {
         private static readonly HashSet<string> ignoredLibraryTypes = new HashSet<string>
-        {
-            SolutionFolderId.ToString("B"),
-            CsprojFile.VisualStudioSetupLibraryType.ToString("B"),
-            CsprojFile.WebSiteLibraryType.ToString("B")
-        };
+{
+SolutionFolderId.ToString("B"),
+CsprojFile.VisualStudioSetupLibraryType.ToString("B"),
+CsprojFile.WebSiteLibraryType.ToString("B")
+};
 
         private readonly Solution _parent;
         private ProjectSection _projectSection;
@@ -346,7 +346,7 @@ MSBuildProject.CreateFromFile(projectName, templateFile);
         }
 
         private
-void lookForGlobalSection(string text)
+        void lookForGlobalSection(string text)
         {
             text = text.Trim();
             if (text.Trim().StartsWith("GlobalSection"))
@@ -358,23 +358,23 @@ void lookForGlobalSection(string text)
         }
 
         private
-void
-lookForProjectSection(string text)
+        void
+        lookForProjectSection(string text)
         {
             text = text.Trim();
             if (text.Trim().StartsWith("ProjectSection"))
             {
                 _projectSection = text.Trim().StartsWith("ProjectSection(ProjectDependencies)")
-                    ? new ProjectDependenciesSection(text)
-                    : new ProjectSection(text);
+                ? new ProjectDependenciesSection(text)
+                : new ProjectSection(text);
                 _solutionProject.ProjectSections.Add(_projectSection);
                 _read = readProjectSection;
             }
         }
 
         private
-void
-readSection(string text)
+        void
+        readSection(string text)
         {
             if (text.Trim() == EndGlobalSection)
                 _read = lookForGlobalSection;
@@ -383,8 +383,8 @@ readSection(string text)
         }
 
         private
-void
-readProjectSection(string text)
+        void
+        readProjectSection(string text)
         {
             if (text.Trim() == EndProjectSection)
                 _read = readProject;
@@ -393,8 +393,8 @@ readProjectSection(string text)
         }
 
         private
-void
-readProject(string text)
+        void
+        readProject(string text)
         {
             if (text.Trim().StartsWith("EndProject"))
             {
@@ -410,8 +410,8 @@ readProject(string text)
         }
 
         private
-void
-normalRead(string text)
+        void
+        normalRead(string text)
         {
             if (text.StartsWith(Global))
             {
@@ -444,12 +444,12 @@ normalRead(string text)
         public static bool IncludeAsProject(string text)
         {
             return text.StartsWith("Project") && !ignoredLibraryTypes.Any(item =>
-                text.Contains(item, StringComparison.InvariantCultureIgnoreCase));
+            text.Contains(item, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public
-void
-Read(string text)
+        void
+        Read(string text)
         {
 
             _read(text);

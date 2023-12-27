@@ -1,6 +1,5 @@
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Planning;
+
 
 public class TemplatePlan
 {
@@ -58,8 +57,8 @@ public class TemplatePlan
     public IEnumerable<ITemplateStep> Steps => _steps;
 
     public ProjectPlan CurrentProject =>
-        // Hokey, but leave it
-        _currentProject ?? _steps.OfType<ProjectPlan>().LastOrDefault();
+    // Hokey, but leave it
+    _currentProject ?? _steps.OfType<ProjectPlan>().LastOrDefault();
 
     public static TemplatePlan CreateClean(string directory)
     {
@@ -144,7 +143,7 @@ public class TemplatePlan
                 Logger.StartProject(project.Alterations.Count);
                 project.Substitutions.Trace(Logger);
                 project.Alterations.Each(alteration =>
-                    Logger.TraceAlteration(ApplySubstitutions(alteration.ToString())));
+        Logger.TraceAlteration(ApplySubstitutions(alteration.ToString())));
                 Logger.EndProject();
             }
         });
@@ -176,13 +175,13 @@ public class TemplatePlan
     public void CopyUnhandledFiles(string directory)
     {
         var unhandledFiles =
-            FileSystem.FindFiles(directory, FileSet.Everything()).Where(FileIsUnhandled);
+        FileSystem.FindFiles(directory, FileSet.Everything()).Where(FileIsUnhandled);
 
         if (CurrentProject == null)
             unhandledFiles.Each(file => Add(new CopyFileToSolution(file.PathRelativeTo(directory), file)));
         else
             unhandledFiles.Each(
-                file => CurrentProject.Add(new CopyFileToProject(file.PathRelativeTo(directory), file)));
+            file => CurrentProject.Add(new CopyFileToProject(file.PathRelativeTo(directory), file)));
     }
 
     public void WriteNugetImports()
@@ -196,16 +195,16 @@ public class TemplatePlan
             Logger.Trace("");
 
             TemplateLibrary.FileSystem.AlterFlatFile(Root.AppendPath(RippleImportFile),
-                list => { list.AddRange(projectsWithNugets); });
+            list => { list.AddRange(projectsWithNugets); });
         }
     }
 
     private string[] determineProjectsWithNugets()
     {
         var projectsWithNugets = Steps
-            .OfType<ProjectPlan>()
-            .Where(x => x.NugetDeclarations.Any())
-            .Select(x => x.ToNugetImportStatement()).ToArray();
+        .OfType<ProjectPlan>()
+        .Where(x => x.NugetDeclarations.Any())
+        .Select(x => x.ToNugetImportStatement()).ToArray();
         return projectsWithNugets;
     }
 
@@ -230,7 +229,7 @@ public class TemplatePlan
         var contents = instructionText.SplitOnNewLine();
 
         FileSystem.AlterFlatFile(Root.AppendPath(InstructionsFile),
-            list => list.AddRange(contents));
+        list => list.AddRange(contents));
 
 
         CL.WriteLine();

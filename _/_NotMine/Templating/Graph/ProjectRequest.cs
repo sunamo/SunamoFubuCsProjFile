@@ -22,7 +22,7 @@ public class ProjectRequest
     }
 
     public ProjectRequest(string name, string template, string originalProject)
-        : this(name, template)
+    : this(name, template)
     {
         OriginalProject = originalProject;
     }

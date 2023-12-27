@@ -9,39 +9,39 @@ public class SolutionPlanner : TemplatePlanner
 
     public
 #if ASYNC
-async Task
+    async Task
 #else
-void  
+void
 #endif
-        Init()
+    Init()
     {
         ShallowMatch(Substitutions.ConfigFile).Do = (file, plan) => { plan.Substitutions.ReadFrom(file.Path); };
 
         ShallowMatch(Input.File).Do =
 #if ASYNC
-async
+        async
 #endif
-(file, plan) =>
+        (file, plan) =>
         {
             var inputs =
 #if ASYNC
-await
+    await
 #endif
-Input.ReadFromFile(file.Path);
+    Input.ReadFromFile(file.Path);
             plan.Substitutions.ReadInputs(inputs, plan.MissingInputs.Add);
         };
 
         ShallowMatch(TemplatePlan.InstructionsFile).Do =
 #if ASYNC
-async
+        async
 #endif
-(file, plan) =>
+        (file, plan) =>
         {
             var instructions =
 #if ASYNC
-await
+    await
 #endif
-file.ReadAll();
+    file.ReadAll();
             plan.AddInstructions(instructions);
         };
     }

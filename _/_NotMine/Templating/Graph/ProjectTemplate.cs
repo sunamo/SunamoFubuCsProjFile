@@ -76,7 +76,7 @@ public class ProjectTemplate : DescribesItself
     private bool tryResolveSelection(string optionName, TemplateChoices choices)
     {
         var selection = (Selections ?? new OptionSelection[0])
-            .FirstOrDefault(x => x.FindOption(optionName) != null);
+        .FirstOrDefault(x => x.FindOption(optionName) != null);
 
         if (selection == null) return false;
 

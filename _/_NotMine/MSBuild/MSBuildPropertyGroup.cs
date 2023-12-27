@@ -1,13 +1,13 @@
-using FubuCsprojFile;
-
 namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
+
+
 
 public class MSBuildPropertyGroup : MSBuildObject, MSBuildPropertySet
 {
     private readonly Dictionary<string, MSBuildProperty> properties = new Dictionary<string, MSBuildProperty>();
 
     public MSBuildPropertyGroup(MSBuildProject parent, XmlElement elem)
-        : base(elem)
+    : base(elem)
     {
         Parent = parent;
     }

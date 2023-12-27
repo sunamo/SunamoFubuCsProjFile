@@ -1,8 +1,5 @@
-using FubuCsprojFile;
-
-using SunamoFubuCsProjFile._._NotMine.Templating;
-
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
 
 public class GemReference : ITemplateStep
 {
@@ -28,8 +25,8 @@ public class GemReference : ITemplateStep
     }
 
     private
-void
-Alter(List<string> list)
+    void
+    Alter(List<string> list)
     {
         if (!list.Contains(DefaultFeed))
         {
@@ -63,7 +60,7 @@ Alter(List<string> list)
         unchecked
         {
             return (GemName != null ? GemName.GetHashCode() : 0) * 397 ^
-                   (Version != null ? Version.GetHashCode() : 0);
+            (Version != null ? Version.GetHashCode() : 0);
         }
     }
 
@@ -78,13 +75,13 @@ Alter(List<string> list)
     /// <param name="textFile"></param>
     /// <param name="plan"></param>
     public static
-//#if ASYNC
-//    async Task
-//#else
-//    void  
-//#endif
-void
-ConfigurePlan(TextFile textFile, TemplatePlan plan)
+    //#if ASYNC
+    //    async Task
+    //#else
+    //    void
+    //#endif
+    void
+    ConfigurePlan(TextFile textFile, TemplatePlan plan)
     {
 
         //#if ASYNC
@@ -92,12 +89,12 @@ ConfigurePlan(TextFile textFile, TemplatePlan plan)
         //#endif
         textFile.ReadLines()
 #if ASYNC
-   .Result
+        .Result
 #endif
-.Each(line =>
-           {
-               var parts = line.ToDelimitedArray();
-               plan.Add(new GemReference(parts.First(), parts.Last()));
-           });
+        .Each(line =>
+        {
+            var parts = line.ToDelimitedArray();
+            plan.Add(new GemReference(parts.First(), parts.Last()));
+        });
     }
 }

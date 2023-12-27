@@ -3,7 +3,7 @@ namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
 public class MSBuildTarget : MSBuildObject
 {
     public MSBuildTarget(XmlElement elem)
-        : base(elem)
+    : base(elem)
     {
     }
 

@@ -50,8 +50,8 @@ public class TemplateGraph
         var project = category.FindTemplate(choices.ProjectType);
         if (project == null)
             ThrowEx.Custom(
-                "ProjectTemplate '{0}' for category {1} is unknown".ToFormat(choices.ProjectType,
-                    choices.Category));
+            "ProjectTemplate '{0}' for category {1} is unknown".ToFormat(choices.ProjectType,
+            choices.Category));
 
         return project.BuildProjectRequest(choices);
     }

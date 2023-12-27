@@ -1,6 +1,6 @@
-using SunamoFubuCsProjFile._._NotMine;
-
 namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
+
+
 
 public class MSBuildProjectSettings
 {
@@ -17,15 +17,15 @@ public class MSBuildProjectSettings
     public bool OnlySaveIfChanged { get; set; }
 
     public static MSBuildProjectSettings DefaultSettings =>
-        new MSBuildProjectSettings
-        {
-            MaintainOriginalItemOrder = false
-        };
+    new MSBuildProjectSettings
+    {
+        MaintainOriginalItemOrder = false
+    };
 
     public static MSBuildProjectSettings MinimizeChanges =>
-        new MSBuildProjectSettings
-        {
-            MaintainOriginalItemOrder = true,
-            OnlySaveIfChanged = true
-        };
+    new MSBuildProjectSettings
+    {
+        MaintainOriginalItemOrder = true,
+        OnlySaveIfChanged = true
+    };
 }
