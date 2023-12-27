@@ -1,68 +1,67 @@
-namespace FubuCsprojFile.Templating.Graph
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+public class TemplateGraph
 {
-    public class TemplateGraph
+    public static readonly string FILE = "Templates.xml";
+
+    private static Type type = typeof(TemplateGraph);
+
+
+    private readonly IList<ProjectCategory> _categories = new List<ProjectCategory>();
+
+    public static TemplateGraph Read(string file)
     {
-        public static readonly string FILE = "Templates.xml";
+        var document = new XmlDocument();
+        document.Load(file);
 
-        private static Type type = typeof(TemplateGraph);
+        var graph = new TemplateGraph();
 
-
-        private readonly IList<ProjectCategory> _categories = new List<ProjectCategory>();
-
-        public static TemplateGraph Read(string file)
+        foreach (XmlElement element in document.DocumentElement.SelectNodes("category"))
         {
-            var document = new XmlDocument();
-            document.Load(file);
+            var category = new ProjectCategory { Type = element.GetAttribute("type") };
+            foreach (XmlElement projectElement in element.SelectNodes("project"))
+                category.Templates.Add(projectElement.BuildProjectTemplate());
 
-            var graph = new TemplateGraph();
-
-            foreach (XmlElement element in document.DocumentElement.SelectNodes("category"))
-            {
-                var category = new ProjectCategory { Type = element.GetAttribute("type") };
-                foreach (XmlElement projectElement in element.SelectNodes("project"))
-                    category.Templates.Add(projectElement.BuildProjectTemplate());
-
-                graph._categories.Add(category);
-            }
-
-
-            return graph;
+            graph._categories.Add(category);
         }
 
-        public void AddCategory(ProjectCategory category)
-        {
-            _categories.Add(category);
-        }
 
-        public ProjectCategory FindCategory(string category)
-        {
-            return _categories.FirstOrDefault(x => x.Type.EqualsIgnoreCase(category));
-        }
+        return graph;
+    }
 
-        public ProjectRequest BuildProjectRequest(TemplateChoices choices)
-        {
-            if (choices.Category.IsEmpty()) ThrowEx.Custom("Category is required");
-            if (choices.ProjectName.IsEmpty()) ThrowEx.Custom("ProjectName is required");
+    public void AddCategory(ProjectCategory category)
+    {
+        _categories.Add(category);
+    }
 
-            var category = FindCategory(choices.Category);
-            if (category == null) ThrowEx.Custom("Category '{0}' is unknown".ToFormat(choices.Category));
+    public ProjectCategory FindCategory(string category)
+    {
+        return _categories.FirstOrDefault(x => x.Type.EqualsIgnoreCase(category));
+    }
 
-            var project = category.FindTemplate(choices.ProjectType);
-            if (project == null)
-                ThrowEx.Custom(
-                    "ProjectTemplate '{0}' for category {1} is unknown".ToFormat(choices.ProjectType,
-                        choices.Category));
+    public ProjectRequest BuildProjectRequest(TemplateChoices choices)
+    {
+        if (choices.Category.IsEmpty()) ThrowEx.Custom("Category is required");
+        if (choices.ProjectName.IsEmpty()) ThrowEx.Custom("ProjectName is required");
 
-            return project.BuildProjectRequest(choices);
-        }
+        var category = FindCategory(choices.Category);
+        if (category == null) ThrowEx.Custom("Category '{0}' is unknown".ToFormat(choices.Category));
 
-        public ProjectCategory AddCategory(string categoryName)
-        {
-            var category = new ProjectCategory { Type = categoryName };
+        var project = category.FindTemplate(choices.ProjectType);
+        if (project == null)
+            ThrowEx.Custom(
+                "ProjectTemplate '{0}' for category {1} is unknown".ToFormat(choices.ProjectType,
+                    choices.Category));
 
-            _categories.Add(category);
+        return project.BuildProjectRequest(choices);
+    }
 
-            return category;
-        }
+    public ProjectCategory AddCategory(string categoryName)
+    {
+        var category = new ProjectCategory { Type = categoryName };
+
+        _categories.Add(category);
+
+        return category;
     }
 }

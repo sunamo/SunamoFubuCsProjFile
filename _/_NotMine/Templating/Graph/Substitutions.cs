@@ -1,88 +1,87 @@
-namespace FubuCsprojFile.Templating.Graph
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+public class Substitutions
 {
-    public class Substitutions
+    public static readonly string ConfigFile = "fubu.templates.config";
+
+    private readonly Cache<string, string> _values = new Cache<string, string>();
+
+    public void SetIfNone(string key, string value)
     {
-        public static readonly string ConfigFile = "fubu.templates.config";
+        _values.Fill(key, value);
+    }
 
-        private readonly Cache<string, string> _values = new Cache<string, string>();
+    public void Set(string key, string value)
+    {
+        _values[key] = value;
+    }
 
-        public void SetIfNone(string key, string value)
+    public string ValueFor(string key)
+    {
+        return _values[key];
+    }
+
+    public void ReadFrom(string file)
+    {
+        new FileSystem().ReadTextFile(file, line =>
         {
-            _values.Fill(key, value);
-        }
+            if (line.IsEmpty()) return;
 
-        public void Set(string key, string value)
-        {
-            _values[key] = value;
-        }
+            var parts = line.Split('=');
+            SetIfNone(parts.First(), parts.Last());
+        });
+    }
 
-        public string ValueFor(string key)
-        {
-            return _values[key];
-        }
-
-        public void ReadFrom(string file)
-        {
-            new FileSystem().ReadTextFile(file, line =>
+    public void WriteTo(string file)
+    {
+        new FileSystem()
+            .WriteToFlatFile(file, writer => _values.Each((key, value) =>
             {
-                if (line.IsEmpty()) return;
+                if (key != TemplatePlan.INSTRUCTIONS) writer.WriteProperty(key, value);
+            }));
+    }
 
-                var parts = line.Split('=');
-                SetIfNone(parts.First(), parts.Last());
-            });
-        }
+    public bool Has(string key)
+    {
+        return _values.Has(key);
+    }
 
-        public void WriteTo(string file)
+    public string ApplySubstitutions(string rawText, Action<StringBuilder> moreAlteration = null)
+    {
+        var builder = new StringBuilder(rawText);
+        if (moreAlteration != null) moreAlteration(builder);
+
+        ApplySubstitutions(builder);
+
+        return builder.ToString();
+    }
+
+    public void ApplySubstitutions(StringBuilder builder)
+    {
+        _values.Each((key, value) => builder.Replace(key, value));
+    }
+
+    public void CopyTo(Substitutions substitutions2)
+    {
+        _values.Each(substitutions2.Set);
+    }
+
+    public void ReadInputs(IEnumerable<Input> inputs, Action<string> markMissing)
+    {
+        inputs.Each(x =>
         {
-            new FileSystem()
-                .WriteToFlatFile(file, writer => _values.Each((key, value) =>
-                {
-                    if (key != TemplatePlan.INSTRUCTIONS) writer.WriteProperty(key, value);
-                }));
-        }
+            if (!_values.Has(x.Name) && x.Default.IsEmpty()) markMissing(x.Name);
 
-        public bool Has(string key)
+            var resolved = ApplySubstitutions(x.Default ?? string.Empty);
+            SetIfNone(x.Name, resolved);
+        });
+    }
+
+    public void Trace(ITemplateLogger logger)
+    {
+        _values.Each((key, value) =>
         {
-            return _values.Has(key);
-        }
-
-        public string ApplySubstitutions(string rawText, Action<StringBuilder> moreAlteration = null)
-        {
-            var builder = new StringBuilder(rawText);
-            if (moreAlteration != null) moreAlteration(builder);
-
-            ApplySubstitutions(builder);
-
-            return builder.ToString();
-        }
-
-        public void ApplySubstitutions(StringBuilder builder)
-        {
-            _values.Each((key, value) => builder.Replace(key, value));
-        }
-
-        public void CopyTo(Substitutions substitutions2)
-        {
-            _values.Each(substitutions2.Set);
-        }
-
-        public void ReadInputs(IEnumerable<Input> inputs, Action<string> markMissing)
-        {
-            inputs.Each(x =>
-            {
-                if (!_values.Has(x.Name) && x.Default.IsEmpty()) markMissing(x.Name);
-
-                var resolved = ApplySubstitutions(x.Default ?? string.Empty);
-                SetIfNone(x.Name, resolved);
-            });
-        }
-
-        public void Trace(ITemplateLogger logger)
-        {
-            _values.Each((key, value) =>
-            {
-                if (key != TemplatePlan.INSTRUCTIONS) logger.Trace("{0}={1}", key, value);
-            });
-        }
+            if (key != TemplatePlan.INSTRUCTIONS) logger.Trace("{0}={1}", key, value);
+        });
     }
 }

@@ -1,25 +1,26 @@
-namespace FubuCsprojFile.Templating.Graph
-{
-    public class Template
-    {
-        public TemplateType Type { get; set; }
-        public string Name { get; set; }
-        public string Path { get; set; }
-        public string Description { get; set; }
+using SunamoFubuCsProjFile._._NotMine.Templating;
 
-        public
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+public class Template
+{
+    public TemplateType Type { get; set; }
+    public string Name { get; set; }
+    public string Path { get; set; }
+    public string Description { get; set; }
+
+    public
 #if ASYNC
-    async Task<IEnumerable<Input>>
+async Task<IEnumerable<Input>>
 #else
-      IEnumerable<Input>
+  IEnumerable<Input>
 #endif
- Inputs()
-        {
-            return
+Inputs()
+    {
+        return
 #if ASYNC
-    await
+await
 #endif
- Input.ReadFrom(Path);
-        }
+Input.ReadFrom(Path);
     }
 }

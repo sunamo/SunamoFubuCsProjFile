@@ -1,18 +1,17 @@
-namespace FubuCsprojFile.MSBuild
+namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
+
+public class MSBuildProperty : MSBuildObject
 {
-    public class MSBuildProperty : MSBuildObject
+    public MSBuildProperty(XmlElement elem)
+        : base(elem)
     {
-        public MSBuildProperty(XmlElement elem)
-            : base(elem)
-        {
-        }
+    }
 
-        public string Name => Element.Name;
+    public string Name => Element.Name;
 
-        public string Value
-        {
-            get => Element.InnerXml;
-            set => Element.InnerXml = value;
-        }
+    public string Value
+    {
+        get => Element.InnerXml;
+        set => Element.InnerXml = value;
     }
 }

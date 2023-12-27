@@ -1,7 +1,6 @@
-namespace FubuCsprojFile.Templating.Planning
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Planning;
+
+public interface ITemplatePlanner
 {
-    public interface ITemplatePlanner
-    {
-        void DetermineSteps(string directory, TemplatePlan plan);
-    }
+    void DetermineSteps(string directory, TemplatePlan plan);
 }

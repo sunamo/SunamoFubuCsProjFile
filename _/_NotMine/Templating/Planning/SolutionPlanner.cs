@@ -1,54 +1,53 @@
-namespace FubuCsprojFile.Templating.Planning
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Planning;
+
+public class SolutionPlanner : TemplatePlanner
 {
-    public class SolutionPlanner : TemplatePlanner
+    public SolutionPlanner()
     {
-        public SolutionPlanner()
-        {
 
-        }
+    }
 
-        public
+    public
 #if ASYNC
-    async Task
+async Task
 #else
-    void  
+void  
 #endif
-            Init()
+        Init()
+    {
+        ShallowMatch(Substitutions.ConfigFile).Do = (file, plan) => { plan.Substitutions.ReadFrom(file.Path); };
+
+        ShallowMatch(Input.File).Do =
+#if ASYNC
+async
+#endif
+(file, plan) =>
         {
-            ShallowMatch(Substitutions.ConfigFile).Do = (file, plan) => { plan.Substitutions.ReadFrom(file.Path); };
+            var inputs =
+#if ASYNC
+await
+#endif
+Input.ReadFromFile(file.Path);
+            plan.Substitutions.ReadInputs(inputs, plan.MissingInputs.Add);
+        };
 
-            ShallowMatch(Input.File).Do =
+        ShallowMatch(TemplatePlan.InstructionsFile).Do =
 #if ASYNC
-    async
+async
 #endif
- (file, plan) =>
-            {
-                var inputs =
-#if ASYNC
-    await
-#endif
- Input.ReadFromFile(file.Path);
-                plan.Substitutions.ReadInputs(inputs, plan.MissingInputs.Add);
-            };
-
-            ShallowMatch(TemplatePlan.InstructionsFile).Do =
-#if ASYNC
-    async
-#endif
- (file, plan) =>
-            {
-                var instructions =
-#if ASYNC
-    await
-#endif
- file.ReadAll();
-                plan.AddInstructions(instructions);
-            };
-        }
-
-        protected override void configurePlan(string directory, TemplatePlan plan)
+(file, plan) =>
         {
-            SolutionDirectory.PlanForDirectory(directory).Each(plan.Add);
-        }
+            var instructions =
+#if ASYNC
+await
+#endif
+file.ReadAll();
+            plan.AddInstructions(instructions);
+        };
+    }
+
+    protected override void configurePlan(string directory, TemplatePlan plan)
+    {
+        SolutionDirectory.PlanForDirectory(directory).Each(plan.Add);
     }
 }

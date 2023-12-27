@@ -1,3 +1,5 @@
+namespace SunamoFubuCsProjFile;
+
 public class SunamoFubuCsprojFileHelper
 {
     private static Type type = typeof(SunamoFubuCsprojFileHelper);
@@ -8,15 +10,15 @@ public class SunamoFubuCsprojFileHelper
 #if ASYNC
     async Task<List<string>>
 #else
-    List<string>  
+List<string>
 #endif
- GetProjectsInSlnFile(string item)
+    GetProjectsInSlnFile(string item)
     {
         slnOut =
 #if ASYNC
-    await
+        await
 #endif
- Solution.LoadFrom(item);
+        Solution.LoadFrom(item);
 
         var s = slnOut.Projects.Select(d => d.Project.FileName).ToList();
 

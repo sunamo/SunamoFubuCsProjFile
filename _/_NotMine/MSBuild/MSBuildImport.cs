@@ -1,13 +1,12 @@
-namespace FubuCsprojFile.MSBuild
+namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
+
+public class MSBuildImport : MSBuildObject
 {
-    public class MSBuildImport : MSBuildObject
+    public MSBuildImport(XmlElement elem) : base(elem)
     {
-        public MSBuildImport(XmlElement elem) : base(elem)
-        {
-        }
-
-        public string Project => Element.GetAttribute("Project");
-
-        public string Name => Element.Name;
     }
+
+    public string Project => Element.GetAttribute("Project");
+
+    public string Name => Element.Name;
 }

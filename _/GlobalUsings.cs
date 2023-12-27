@@ -1,4 +1,5 @@
-﻿global using cl;
+
+global using cl;
 global using FubuCore.CommandLine;
 global using FubuCore.Descriptions;
 global using FubuCore.Util;

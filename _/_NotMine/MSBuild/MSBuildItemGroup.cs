@@ -1,34 +1,33 @@
-namespace FubuCsprojFile.MSBuild
+namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
+
+public class MSBuildItemGroup : MSBuildObject
 {
-    public class MSBuildItemGroup : MSBuildObject
+    private readonly MSBuildProject parent;
+
+    public MSBuildItemGroup(MSBuildProject parent, XmlElement elem)
+        : base(elem)
     {
-        private readonly MSBuildProject parent;
+        this.parent = parent;
+    }
 
-        public MSBuildItemGroup(MSBuildProject parent, XmlElement elem)
-            : base(elem)
+    public IEnumerable<MSBuildItem> Items
+    {
+        get
         {
-            this.parent = parent;
-        }
-
-        public IEnumerable<MSBuildItem> Items
-        {
-            get
+            foreach (XmlNode node in Element.ChildNodes)
             {
-                foreach (XmlNode node in Element.ChildNodes)
-                {
-                    var elem = node as XmlElement;
-                    if (elem != null)
-                        yield return parent.GetItem(elem);
-                }
+                var elem = node as XmlElement;
+                if (elem != null)
+                    yield return parent.GetItem(elem);
             }
         }
+    }
 
-        public MSBuildItem AddNewItem(string name, string include)
-        {
-            var elem = AddChildElement(name);
-            var it = parent.GetItem(elem);
-            it.Include = include;
-            return it;
-        }
+    public MSBuildItem AddNewItem(string name, string include)
+    {
+        var elem = AddChildElement(name);
+        var it = parent.GetItem(elem);
+        it.Include = include;
+        return it;
     }
 }

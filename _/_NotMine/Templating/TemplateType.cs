@@ -1,9 +1,8 @@
-namespace FubuCsprojFile.Templating
+namespace SunamoFubuCsProjFile._._NotMine.Templating;
+
+public enum TemplateType
 {
-    public enum TemplateType
-    {
-        Solution,
-        Project,
-        Alteration
-    }
+    Solution,
+    Project,
+    Alteration
 }

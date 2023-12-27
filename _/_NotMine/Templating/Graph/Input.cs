@@ -1,88 +1,89 @@
-namespace FubuCsprojFile.Templating.Graph
+using FubuCsprojFile;
+
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+public class Input
 {
-    public class Input
+    public static readonly string File = "inputs.txt";
+    string text = null;
+
+    public Input()
     {
-        public static readonly string File = "inputs.txt";
-        string text = null;
+    }
 
-        public Input()
+    public Input(string text)
+    {
+        this.text = text;
+    }
+
+    public
+#if ASYNC
+async Task
+#else
+void  
+#endif
+        Init()
+    {
+        var parts = text.ToDelimitedArray();
+        if (parts.First().Contains("="))
         {
+            var nameParts = parts.First().Split('=');
+            Name = nameParts.First();
+            Default = nameParts.Last();
+        }
+        else
+        {
+            Name = parts.First();
         }
 
-        public Input(string text)
-        {
-            this.text = text;
-        }
+        Description = parts.Last();
+    }
 
-        public
+    public string Name { get; set; }
+    public string Default { get; set; }
+    public string Description { get; set; }
+
+    public static
 #if ASYNC
-    async Task
+async Task<IEnumerable<Input>>
 #else
-    void  
+  IEnumerable<Input>
 #endif
-            Init()
-        {
-            var parts = text.ToDelimitedArray();
-            if (parts.First().Contains("="))
-            {
-                var nameParts = parts.First().Split('=');
-                Name = nameParts.First();
-                Default = nameParts.Last();
-            }
-            else
-            {
-                Name = parts.First();
-            }
-
-            Description = parts.Last();
-        }
-
-        public string Name { get; set; }
-        public string Default { get; set; }
-        public string Description { get; set; }
-
-        public static
-#if ASYNC
-    async Task<IEnumerable<Input>>
-#else
-      IEnumerable<Input>
-#endif
- ReadFrom(string directory)
-        {
-            var fileSystem = new FileSystem();
-            var file = directory.AppendPath(File);
-            if (!fileSystem.FileExists(file)) return Enumerable.Empty<Input>();
+ReadFrom(string directory)
+    {
+        var fileSystem = new FileSystem();
+        var file = directory.AppendPath(File);
+        if (!fileSystem.FileExists(file)) return Enumerable.Empty<Input>();
 
 #if ASYNC
-            var result = ReadFromFile(file);
+        var result = ReadFromFile(file);
 
-            throw new System.Exception("Nev�m si rady");
-            return null;
-            //var joined = Task.WhenAll( result);
-            //var r2 = await joined;
-            //return r2;
+        throw new System.Exception("Nev�m si rady");
+        return null;
+        //var joined = Task.WhenAll( result);
+        //var r2 = await joined;
+        //return r2;
 #else
-            return ReadFromFile(file);
+        return ReadFromFile(file);
 #endif
-        }
+    }
 
-        public static
+    public static
 #if ASYNC
-    async Task<IEnumerable<Input>>
+async Task<IEnumerable<Input>>
 #else
-      IEnumerable<Input>
+  IEnumerable<Input>
 #endif
- ReadFromFile(string file)
-        {
-            var result =
+ReadFromFile(string file)
+    {
+        var result =
 (
 #if ASYNC
-    await
+await
 #endif
- new FileSystem().ReadStringFromFile(file)).ReadLines().Where(x => x.IsNotEmpty())
-                .Select(x => new Input(x));
+new FileSystem().ReadStringFromFile(file)).ReadLines().Where(x => x.IsNotEmpty())
+            .Select(x => new Input(x));
 
-            return result;
-        }
+        return result;
     }
 }

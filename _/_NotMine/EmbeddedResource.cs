@@ -1,13 +1,12 @@
-namespace FubuCsprojFile
-{
-    public class EmbeddedResource : ProjectItem
-    {
-        public EmbeddedResource(string include) : base("EmbeddedResource", include)
-        {
-        }
+namespace SunamoFubuCsProjFile._._NotMine;
 
-        public EmbeddedResource() : base("EmbeddedResource")
-        {
-        }
+public class EmbeddedResource : ProjectItem
+{
+    public EmbeddedResource(string include) : base("EmbeddedResource", include)
+    {
+    }
+
+    public EmbeddedResource() : base("EmbeddedResource")
+    {
     }
 }

@@ -1,7 +1,6 @@
-namespace FubuCsprojFile
+namespace SunamoFubuCsProjFile._._;
+
+public class CSharpConsts
 {
-    public class CSharpConsts
-    {
-        public const string lc = "//";
-    }
+    public const string lc = "//";
 }

@@ -1,26 +1,25 @@
-namespace FubuCsprojFile.Templating.Graph
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+public class ProjectCategory : DescribesItself
 {
-    public class ProjectCategory : DescribesItself
+    public readonly IList<ProjectTemplate> Templates;
+
+    public string Type;
+
+    public ProjectCategory()
     {
-        public readonly IList<ProjectTemplate> Templates;
+        Templates = new List<ProjectTemplate>();
+    }
 
-        public string Type;
+    public void Describe(Description description)
+    {
+        description.Title = Type + " projects";
+        description.ShortDescription = "Project templating options";
+        description.AddList("Project Types", Templates);
+    }
 
-        public ProjectCategory()
-        {
-            Templates = new List<ProjectTemplate>();
-        }
-
-        public void Describe(Description description)
-        {
-            description.Title = Type + " projects";
-            description.ShortDescription = "Project templating options";
-            description.AddList("Project Types", Templates);
-        }
-
-        public ProjectTemplate FindTemplate(string name)
-        {
-            return Templates.FirstOrDefault(x => FubuCore.StringExtensions.EqualsIgnoreCase(x.Name, name));
-        }
+    public ProjectTemplate FindTemplate(string name)
+    {
+        return Templates.FirstOrDefault(x => FubuCore.StringExtensions.EqualsIgnoreCase(x.Name, name));
     }
 }

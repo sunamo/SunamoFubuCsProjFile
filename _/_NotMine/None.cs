@@ -1,14 +1,13 @@
-namespace FubuCsprojFile
-{
-    public class None : Content
-    {
-        public None()
-        {
-            Name = "None";
-        }
+namespace SunamoFubuCsProjFile._._NotMine;
 
-        public None(string include) : base("None", include)
-        {
-        }
+public class None : Content
+{
+    public None()
+    {
+        Name = "None";
+    }
+
+    public None(string include) : base("None", include)
+    {
     }
 }

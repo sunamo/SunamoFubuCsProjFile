@@ -1,47 +1,46 @@
-namespace FubuCsprojFile.Templating
+namespace SunamoFubuCsProjFile._._NotMine.Templating;
+
+public class TextFile
 {
-    public class TextFile
+    public static readonly IFileSystem FileSystem = new FileSystem();
+
+    public TextFile(string path, string relativePath)
     {
-        public static readonly IFileSystem FileSystem = new FileSystem();
+        Path = path;
+        RelativePath = relativePath.Replace('\\', '/');
+    }
 
-        public TextFile(string path, string relativePath)
-        {
-            Path = path;
-            RelativePath = relativePath.Replace('\\', '/');
-        }
+    public string RelativePath { get; }
 
-        public string RelativePath { get; }
+    public string Path { get; }
 
-        public string Path { get; }
-
-        public
+    public
 #if ASYNC
-    async Task<string>
+async Task<string>
 #else
-    string  
+string  
 #endif
- ReadAll()
-        {
-            return
+ReadAll()
+    {
+        return
 #if ASYNC
-    await
+await
 #endif
- FileSystem.ReadStringFromFile(Path);
-        }
+FileSystem.ReadStringFromFile(Path);
+    }
 
-        public
+    public
 #if ASYNC
-    async Task<IEnumerable<string>>
+async Task<IEnumerable<string>>
 #else
-      IEnumerable<string>
+  IEnumerable<string>
 #endif
- ReadLines()
-        {
-            return (
+ReadLines()
+    {
+        return (
 #if ASYNC
-    await
+await
 #endif
- ReadAll()).Trim().SplitOnNewLine();
-        }
+ReadAll()).Trim().SplitOnNewLine();
     }
 }

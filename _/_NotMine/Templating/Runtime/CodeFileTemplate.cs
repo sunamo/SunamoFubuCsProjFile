@@ -1,67 +1,66 @@
-namespace FubuCsprojFile.Templating.Runtime
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+public class CodeFileTemplate : IProjectAlteration
 {
-    public class CodeFileTemplate : IProjectAlteration
+    public const string CLASS = "%CLASS%";
+
+    private static Type type = typeof(CodeFileTemplate);
+
+    public CodeFileTemplate(string relativePath, string rawText)
     {
-        public const string CLASS = "%CLASS%";
+        if (Path.GetExtension(relativePath) != ".cs")
+            ThrowEx.ArgumentOutOfRangeException("relativePath", "Relative Path must have the .cs extension");
 
-        private static Type type = typeof(CodeFileTemplate);
+        RelativePath = relativePath.Replace('\\', '/');
 
-        public CodeFileTemplate(string relativePath, string rawText)
-        {
-            if (Path.GetExtension(relativePath) != ".cs")
-                ThrowEx.ArgumentOutOfRangeException("relativePath", "Relative Path must have the .cs extension");
+        RawText = rawText;
+    }
 
-            RelativePath = relativePath.Replace('\\', '/');
+    public string RelativePath { get; }
 
-            RawText = rawText;
-        }
-
-        public string RelativePath { get; }
-
-        public string RawText { get; }
+    public string RawText { get; }
 
 
-        public
+    public
 #if ASYNC
-    async Task
+async Task
 #else
-    void
+void
 #endif
- Alter(CsprojFile file, ProjectPlan plan)
-        {
-            var includePath = plan.ApplySubstitutions(RelativePath);
-            var filename = file.FileName.ParentDirectory().AppendPath(includePath);
-            if (!filename.EndsWith(".cs")) filename = filename + ".cs";
+Alter(CsprojFile file, ProjectPlan plan)
+    {
+        var includePath = plan.ApplySubstitutions(RelativePath);
+        var filename = file.FileName.ParentDirectory().AppendPath(includePath);
+        if (!filename.EndsWith(".cs")) filename = filename + ".cs";
 
-            var text = plan.ApplySubstitutions(RawText, RelativePath);
-            var fs = new FileSystem();
+        var text = plan.ApplySubstitutions(RawText, RelativePath);
+        var fs = new FileSystem();
 
 
 #if ASYNC
-    await
+        await
 #endif
-            fs.WriteStringToFile(filename, text);
+                fs.WriteStringToFile(filename, text);
 
-            file.Add<CodeFile>(includePath);
-        }
+        file.Add<CodeFile>(includePath);
+    }
 
-        public static CodeFileTemplate Class(string relativePath)
-        {
-            var @class = Path.GetFileNameWithoutExtension(relativePath);
+    public static CodeFileTemplate Class(string relativePath)
+    {
+        var @class = Path.GetFileNameWithoutExtension(relativePath);
 
-            var rawText = Assembly.GetExecutingAssembly()
-                .GetManifestResourceStream(typeof(CodeFileTemplate), "Class.txt")
-                .ReadAllText()
-                .Replace(CLASS, @class);
+        var rawText = Assembly.GetExecutingAssembly()
+            .GetManifestResourceStream(typeof(CodeFileTemplate), "Class.txt")
+            .ReadAllText()
+            .Replace(CLASS, @class);
 
-            if (Path.GetExtension(relativePath) != ".cs") relativePath = relativePath + ".cs";
+        if (Path.GetExtension(relativePath) != ".cs") relativePath = relativePath + ".cs";
 
-            return new CodeFileTemplate(relativePath, rawText);
-        }
+        return new CodeFileTemplate(relativePath, rawText);
+    }
 
-        public override string ToString()
-        {
-            return string.Format("Write and attach code file: {0}", RelativePath);
-        }
+    public override string ToString()
+    {
+        return string.Format("Write and attach code file: {0}", RelativePath);
     }
 }

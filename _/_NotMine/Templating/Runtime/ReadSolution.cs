@@ -1,48 +1,47 @@
-namespace FubuCsprojFile.Templating.Runtime
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+public class ReadSolution : ITemplateStep
 {
-    public class ReadSolution : ITemplateStep
+    public ReadSolution(string solutionFile)
     {
-        public ReadSolution(string solutionFile)
-        {
-            SolutionFile = solutionFile;
-        }
+        SolutionFile = solutionFile;
+    }
 
-        public string SolutionFile { get; }
+    public string SolutionFile { get; }
 
-        public
+    public
 void
- Alter(TemplatePlan plan)
-        {
-            var solution =
- Solution.LoadFrom(SolutionFile)
+Alter(TemplatePlan plan)
+    {
+        var solution =
+Solution.LoadFrom(SolutionFile)
 #if ASYNC
-    .Result
+.Result
 #endif
 ;
-            plan.Solution = solution;
-        }
+        plan.Solution = solution;
+    }
 
-        protected bool Equals(ReadSolution other)
-        {
-            return string.Equals(SolutionFile, other.SolutionFile);
-        }
+    protected bool Equals(ReadSolution other)
+    {
+        return string.Equals(SolutionFile, other.SolutionFile);
+    }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((ReadSolution)obj);
-        }
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
+        return Equals((ReadSolution)obj);
+    }
 
-        public override int GetHashCode()
-        {
-            return SolutionFile != null ? SolutionFile.GetHashCode() : 0;
-        }
+    public override int GetHashCode()
+    {
+        return SolutionFile != null ? SolutionFile.GetHashCode() : 0;
+    }
 
-        public override string ToString()
-        {
-            return string.Format("Read solution {0}", SolutionFile);
-        }
+    public override string ToString()
+    {
+        return string.Format("Read solution {0}", SolutionFile);
     }
 }

@@ -1,71 +1,70 @@
-namespace FubuCsprojFile.Templating.Runtime
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+public class TemplateLogger : ITemplateLogger
 {
-    public class TemplateLogger : ITemplateLogger
+    private readonly Stopwatch _stopwatch = new Stopwatch();
+    private int _alterationNumber;
+    private int _indention;
+    private int _numberOfAlterations;
+    private int _numberOfSteps;
+    private int _stepCount;
+
+    public void Starting(int numberOfSteps)
     {
-        private readonly Stopwatch _stopwatch = new Stopwatch();
-        private int _alterationNumber;
-        private int _indention;
-        private int _numberOfAlterations;
-        private int _numberOfSteps;
-        private int _stepCount;
+        _numberOfSteps = numberOfSteps;
+        _stopwatch.Start();
+    }
 
-        public void Starting(int numberOfSteps)
-        {
-            _numberOfSteps = numberOfSteps;
-            _stopwatch.Start();
-        }
+    public void TraceStep(ITemplateStep step)
+    {
+        _stepCount++;
+        var text = _stepCount.ToString().PadLeft(3) + "/" + _numberOfSteps + ": " + step;
 
-        public void TraceStep(ITemplateStep step)
-        {
-            _stepCount++;
-            var text = _stepCount.ToString().PadLeft(3) + "/" + _numberOfSteps + ": " + step;
+        ConsoleWriter.WriteWithIndent(ConsoleColor.White, 0, text);
 
-            ConsoleWriter.WriteWithIndent(ConsoleColor.White, 0, text);
+        _indention = 4;
+    }
 
-            _indention = 4;
-        }
+    public void Trace(string contents, params object[] parameters)
+    {
+        ConsoleWriter.WriteWithIndent(ConsoleColor.White, _indention, contents.ToFormat(parameters));
+    }
 
-        public void Trace(string contents, params object[] parameters)
-        {
-            ConsoleWriter.WriteWithIndent(ConsoleColor.White, _indention, contents.ToFormat(parameters));
-        }
+    public void StartProject(int numberOfAlterations)
+    {
+        _alterationNumber = 0;
+        _numberOfAlterations = numberOfAlterations;
+        _indention = 4;
+    }
 
-        public void StartProject(int numberOfAlterations)
-        {
-            _alterationNumber = 0;
-            _numberOfAlterations = numberOfAlterations;
-            _indention = 4;
-        }
+    public void EndProject()
+    {
+        _indention = 4;
+    }
 
-        public void EndProject()
-        {
-            _indention = 4;
-        }
+    public void TraceAlteration(string alteration)
+    {
+        _alterationNumber++;
+        var text = _alterationNumber.ToString().PadLeft(3) + "/" + _numberOfAlterations + ": " + alteration;
 
-        public void TraceAlteration(string alteration)
-        {
-            _alterationNumber++;
-            var text = _alterationNumber.ToString().PadLeft(3) + "/" + _numberOfAlterations + ": " + alteration;
+        ConsoleWriter.WriteWithIndent(ConsoleColor.Gray, _indention, text);
+    }
 
-            ConsoleWriter.WriteWithIndent(ConsoleColor.Gray, _indention, text);
-        }
+    public void Finish()
+    {
+        _stopwatch.Stop();
 
-        public void Finish()
-        {
-            _stopwatch.Stop();
+        ConsoleWriter.Write(ConsoleColor.Green,
+            "Templating successful in {0} ms".ToFormat(_stopwatch.ElapsedMilliseconds));
+    }
 
-            ConsoleWriter.Write(ConsoleColor.Green,
-                "Templating successful in {0} ms".ToFormat(_stopwatch.ElapsedMilliseconds));
-        }
+    public void WriteSuccess(string message)
+    {
+        ConsoleWriter.WriteWithIndent(ConsoleColor.Green, _indention, message);
+    }
 
-        public void WriteSuccess(string message)
-        {
-            ConsoleWriter.WriteWithIndent(ConsoleColor.Green, _indention, message);
-        }
-
-        public void WriteWarning(string message)
-        {
-            ConsoleWriter.WriteWithIndent(ConsoleColor.Yellow, _indention, message);
-        }
+    public void WriteWarning(string message)
+    {
+        ConsoleWriter.WriteWithIndent(ConsoleColor.Yellow, _indention, message);
     }
 }

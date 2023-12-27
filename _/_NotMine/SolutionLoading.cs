@@ -1,8 +1,7 @@
-namespace FubuCsprojFile
+namespace SunamoFubuCsProjFile._._NotMine;
+
+public enum SolutionLoading
 {
-    public enum SolutionLoading
-    {
-        preSolution,
-        postSolution
-    }
+    preSolution,
+    postSolution
 }

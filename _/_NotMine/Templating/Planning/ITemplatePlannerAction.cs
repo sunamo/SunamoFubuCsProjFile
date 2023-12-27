@@ -1,18 +1,19 @@
-namespace FubuCsprojFile.Templating.Planning
+using SunamoFubuCsProjFile._._NotMine.Templating;
+
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Planning;
+
+public interface ITemplatePlannerActionAsync
 {
-    public interface ITemplatePlannerActionAsync
-    {
 #if ASYNC
-        Func<TextFile, TemplatePlan, Task> Do { set; }
+    Func<TextFile, TemplatePlan, Task> Do { set; }
 #else
 Action<TextFile, TemplatePlan> Do { set; }
 #endif
 
 
-    }
+}
 
-    public interface ITemplatePlannerAction
-    {
-        Action<TextFile, TemplatePlan> Do { set; }
-    }
+public interface ITemplatePlannerAction
+{
+    Action<TextFile, TemplatePlan> Do { set; }
 }

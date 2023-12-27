@@ -1,4 +1,5 @@
-﻿global using FubuCsprojFile;
+
+global using FubuCsprojFile;
 global using SunamoExceptions;
 global using System.Collections.Generic;
 global using System.Linq;

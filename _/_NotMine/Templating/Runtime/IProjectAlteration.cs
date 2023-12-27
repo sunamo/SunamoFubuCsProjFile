@@ -1,18 +1,17 @@
-namespace FubuCsprojFile.Templating.Runtime
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+public interface IProjectAlteration
 {
-    public interface IProjectAlteration
-    {
-        /// <summary>
-        /// must be async
-        /// </summary>
-        /// <param name="file"></param>
-        /// <param name="plan"></param>
-        /// <returns></returns>
+    /// <summary>
+    /// must be async
+    /// </summary>
+    /// <param name="file"></param>
+    /// <param name="plan"></param>
+    /// <returns></returns>
 #if ASYNC
-        Task
+    Task
 #else
-    void  
+void  
 #endif
-    Alter(CsprojFile file, ProjectPlan plan);
-    }
+Alter(CsprojFile file, ProjectPlan plan);
 }

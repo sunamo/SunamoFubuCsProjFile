@@ -1,59 +1,58 @@
-namespace FubuCsprojFile.Templating.Runtime
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Runtime;
+
+public class CopyFileToSolution : ITemplateStep
 {
-    public class CopyFileToSolution : ITemplateStep
+    private readonly string _relativePath;
+    private readonly string _source;
+
+    public CopyFileToSolution(string relativePath, string source)
     {
-        private readonly string _relativePath;
-        private readonly string _source;
+        _relativePath = relativePath.Replace("\\", "/");
+        _source = source;
+    }
 
-        public CopyFileToSolution(string relativePath, string source)
-        {
-            _relativePath = relativePath.Replace("\\", "/");
-            _source = source;
-        }
-
-        public
+    public
 void
- Alter(TemplatePlan plan)
-        {
-            var expectedFile = plan.Root.AppendPath(_relativePath);
-            var contents =
+Alter(TemplatePlan plan)
+    {
+        var expectedFile = plan.Root.AppendPath(_relativePath);
+        var contents =
 
- plan.FileSystem.ReadStringFromFile(_source)
+plan.FileSystem.ReadStringFromFile(_source)
 #if ASYNC
-    .Result
+.Result
 #endif
 ;
-            var transformedContents = plan.ApplySubstitutions(contents);
+        var transformedContents = plan.ApplySubstitutions(contents);
 
-            plan.FileSystem.WriteStringToFile(expectedFile, transformedContents);
-        }
+        plan.FileSystem.WriteStringToFile(expectedFile, transformedContents);
+    }
 
-        protected bool Equals(CopyFileToSolution other)
+    protected bool Equals(CopyFileToSolution other)
+    {
+        return string.Equals(_relativePath, other._relativePath) &&
+               string.Equals(_source.CanonicalPath(), other._source.CanonicalPath());
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(this, obj)) return true;
+        if (obj.GetType() != GetType()) return false;
+        return Equals((CopyFileToSolution)obj);
+    }
+
+    public override int GetHashCode()
+    {
+        unchecked
         {
-            return string.Equals(_relativePath, other._relativePath) &&
-                   string.Equals(_source.CanonicalPath(), other._source.CanonicalPath());
+            return (_relativePath != null ? _relativePath.GetHashCode() : 0) * 397 ^
+                   (_source != null ? _source.GetHashCode() : 0);
         }
+    }
 
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((CopyFileToSolution)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return ((_relativePath != null ? _relativePath.GetHashCode() : 0) * 397) ^
-                       (_source != null ? _source.GetHashCode() : 0);
-            }
-        }
-
-        public override string ToString()
-        {
-            return string.Format("Copy {1} to {0}", _relativePath, _source);
-        }
+    public override string ToString()
+    {
+        return string.Format("Copy {1} to {0}", _relativePath, _source);
     }
 }

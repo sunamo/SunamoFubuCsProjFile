@@ -1,4 +1,6 @@
-using static FubuCsprojFile._.Ignored;
+namespace SunamoFubuCsProjFile._._;
+
+using static SunamoFubuCsProjFile._._.Ignored;
 
 public class XmlDocumentsCache
 {
@@ -15,12 +17,12 @@ public class XmlDocumentsCache
 
     public static Func<string, Dictionary<string, XmlDocument>,
 #if ASYNC
-         Task<List<string>>
+    Task<List<string>>
 #else
-        List<string>
+List<string>
 #endif
-        >
-        buildProjectsDependencyTreeList;
+    >
+    buildProjectsDependencyTreeList;
 
     public static int nulled;
 
@@ -40,9 +42,9 @@ public class XmlDocumentsCache
 #if ASYNC
     async Task<ResultWithException<XmlDocument>>
 #else
-        ResultWithException<XmlDocument>
+ResultWithException<XmlDocument>
 #endif
-        Get(string path)
+    Get(string path)
     {
 #if DEBUG
         if (path.EndsWith("duom.web.csproj"))
@@ -80,11 +82,11 @@ public class XmlDocumentsCache
         //{
         xml =
 #if ASYNC
-                    // Tohle nechápu. FubuCsProjFile i SunamoExceptions jsou net7.0.
-                    // co to je za dementní chybu This call site is reachable on all platforms. 'TF.ReadAllTextAsync(string)' is only supported on: 'Windows' 7.0 and later.
-                    await
+        // Tohle nechápu. FubuCsProjFile i SunamoExceptions jsou net7.0.
+        // co to je za dementní chybu This call site is reachable on all platforms. 'TF.ReadAllTextAsync(string)' is only supported on: 'Windows' 7.0 and later.
+        await
 #endif
-                    TFSE.ReadAllText(path);
+        TFSE.ReadAllText(path);
         //}
         //else
         //{
@@ -114,7 +116,7 @@ public class XmlDocumentsCache
         if (save) TFSE.WriteAllText(path, xml);
         xml = XHDuo.FormatXml(xml, path);
 
-        if (xml.StartsWith(ConstsSE.Exception)) return new ResultWithException<XmlDocument>(xml);
+        if (xml.StartsWith(Consts.Exception)) return new ResultWithException<XmlDocument>(xml);
 
         try
         {
@@ -145,9 +147,9 @@ public class XmlDocumentsCache
         {
             var l =
 #if ASYNC
-                await
+            await
 #endif
-                buildProjectsDependencyTreeList(path, null);
+            buildProjectsDependencyTreeList(path, null);
             projectDeps.Add(path, l);
         }
 
@@ -185,9 +187,9 @@ public class XmlDocumentsCache
 #if ASYNC
     async Task
 #else
-    void  
+void
 #endif
- Set(string path, string v, bool saveToFile = false)
+    Set(string path, string v, bool saveToFile = false)
     {
         var xd = new XmlDocument();
         xd.PreserveWhitespace = true;
@@ -197,16 +199,16 @@ public class XmlDocumentsCache
 #if ASYNC
         await
 #endif
-     Set(path, xd, saveToFile);
+        Set(path, xd, saveToFile);
     }
 
     public static
 #if ASYNC
     async Task
 #else
-    void  
+void
 #endif
- Set(string path, XmlDocument v, bool saveToFile = false)
+    Set(string path, XmlDocument v, bool saveToFile = false)
     {
         if (saveToFile)
         {
@@ -215,7 +217,7 @@ public class XmlDocumentsCache
 #if ASYNC
             await
 #endif
-         TFSE.WriteAllText(path, v.OuterXml);
+            TFSE.WriteAllText(path, v.OuterXml);
         }
 
         DictionaryHelperSE.AddOrSet(cache, path, v);

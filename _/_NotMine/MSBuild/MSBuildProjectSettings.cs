@@ -1,30 +1,31 @@
-namespace FubuCsprojFile.MSBuild
+using SunamoFubuCsProjFile._._NotMine;
+
+namespace SunamoFubuCsProjFile._._NotMine.MSBuild;
+
+public class MSBuildProjectSettings
 {
-    public class MSBuildProjectSettings
-    {
-        /// <summary>
-        ///     When saving the project file, do we order the nodes
-        ///     in ascending order?
-        /// </summary>
-        public bool MaintainOriginalItemOrder { get; set; }
+    /// <summary>
+    ///     When saving the project file, do we order the nodes
+    ///     in ascending order?
+    /// </summary>
+    public bool MaintainOriginalItemOrder { get; set; }
 
-        /// <summary>
-        ///     When calls are made to <see cref="CsprojFile.Save()" />, only
-        ///     save the file if the project differs from the one on disk.
-        /// </summary>
-        public bool OnlySaveIfChanged { get; set; }
+    /// <summary>
+    ///     When calls are made to <see cref="CsprojFile.Save()" />, only
+    ///     save the file if the project differs from the one on disk.
+    /// </summary>
+    public bool OnlySaveIfChanged { get; set; }
 
-        public static MSBuildProjectSettings DefaultSettings =>
-            new MSBuildProjectSettings
-            {
-                MaintainOriginalItemOrder = false
-            };
+    public static MSBuildProjectSettings DefaultSettings =>
+        new MSBuildProjectSettings
+        {
+            MaintainOriginalItemOrder = false
+        };
 
-        public static MSBuildProjectSettings MinimizeChanges =>
-            new MSBuildProjectSettings
-            {
-                MaintainOriginalItemOrder = true,
-                OnlySaveIfChanged = true
-            };
-    }
+    public static MSBuildProjectSettings MinimizeChanges =>
+        new MSBuildProjectSettings
+        {
+            MaintainOriginalItemOrder = true,
+            OnlySaveIfChanged = true
+        };
 }

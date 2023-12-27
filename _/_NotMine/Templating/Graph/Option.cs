@@ -1,35 +1,34 @@
-namespace FubuCsprojFile.Templating.Graph
+namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
+
+public class Option : DescribesItself
 {
-    public class Option : DescribesItself
+    public IList<string> Alterations = new List<string>();
+
+    public string Description;
+    public string Name;
+    public string Url;
+
+    public Option()
     {
-        public IList<string> Alterations = new List<string>();
+    }
 
-        public string Description;
-        public string Name;
-        public string Url;
+    public Option(string name, params string[] alterations)
+    {
+        Name = name;
+        Alterations.AddRange(alterations);
+    }
 
-        public Option()
-        {
-        }
+    public void Describe(Description description)
+    {
+        description.Title = Name;
+        description.ShortDescription = Description;
 
-        public Option(string name, params string[] alterations)
-        {
-            Name = name;
-            Alterations.AddRange(alterations);
-        }
+        if (Url.IsNotEmpty()) description.Properties["Url"] = Url;
+    }
 
-        public void Describe(Description description)
-        {
-            description.Title = Name;
-            description.ShortDescription = Description;
-
-            if (Url.IsNotEmpty()) description.Properties["Url"] = Url;
-        }
-
-        public Option DescribedAs(string description)
-        {
-            Description = description;
-            return this;
-        }
+    public Option DescribedAs(string description)
+    {
+        Description = description;
+        return this;
     }
 }
