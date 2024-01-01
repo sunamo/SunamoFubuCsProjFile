@@ -25,7 +25,7 @@ public class TemplateLogger : ITemplateLogger
         _indention = 4;
     }
 
-    public void Trace(string contents, params object[] parameters)
+    public void Trace(string contents, params string[] parameters)
     {
         ConsoleWriter.WriteWithIndent(ConsoleColor.White, _indention, contents.ToFormat(parameters));
     }

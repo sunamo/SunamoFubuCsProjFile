@@ -1,3 +1,6 @@
+using SunamoFubuCore;
+using SunamoFubuCore.Descriptions;
+
 namespace SunamoFubuCsProjFile._._NotMine.Templating.Graph;
 
 public class OptionSelection : DescribesItself

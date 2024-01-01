@@ -1,3 +1,5 @@
+using SunamoFubuCore;
+
 namespace SunamoFubuCsProjFile._._NotMine;
 
 [MarkedForTermination]
