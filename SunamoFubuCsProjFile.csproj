@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <OutputType>Library</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Version>23.12.25.1</Version>
+    <Version>24.1.4.1</Version>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DefineConstants>DEBUG2;DEBUG;TRACE;ASYNC</DefineConstants>
@@ -13,15 +13,14 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
+    <PackageReference Include="SunamoExtensions" Version="24.1.4.1" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0">
     </PackageReference>
     <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0">
     </PackageReference>
     <PackageReference Include="SunamoCl" Version="23.12.9.2" />
-    <PackageReference Include="SunamoFubuCore" Version="24.1.1.1" />
+    <PackageReference Include="SunamoFubuCore" Version="24.1.4.1" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>

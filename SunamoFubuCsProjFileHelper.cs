@@ -1,5 +1,7 @@
 namespace SunamoFubuCsProjFile;
 
+
+
 public class SunamoFubuCsprojFileHelper
 {
     private static Type type = typeof(SunamoFubuCsprojFileHelper);
@@ -8,17 +10,17 @@ public class SunamoFubuCsprojFileHelper
 
     public static
 #if ASYNC
-    async Task<List<string>>
+        async Task<List<string>>
 #else
 List<string>
 #endif
-    GetProjectsInSlnFile(string item)
+        GetProjectsInSlnFile(string item)
     {
         slnOut =
 #if ASYNC
-        await
+            await
 #endif
-        Solution.LoadFrom(item);
+                Solution.LoadFrom(item);
 
         var s = slnOut.Projects.Select(d => d.Project.FileName).ToList();
 
@@ -33,7 +35,7 @@ List<string>
     /// <param name="a"></param>
     public static string AbsoluteFromCombinePath(string a)
     {
-        string r = Path.GetFullPath(new Uri(a).LocalPath);
+        var r = Path.GetFullPath(new Uri(a).LocalPath);
         return r;
     }
 

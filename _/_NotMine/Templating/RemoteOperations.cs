@@ -1,6 +1,0 @@
-namespace SunamoFubuCsProjFile._._NotMine.Templating;
-
-public static class RemoteOperations
-{
-    public static bool Enabled = true;
-}
