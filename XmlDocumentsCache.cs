@@ -1,5 +1,10 @@
 namespace SunamoFubuCsProjFile;
 
+using SunamoDictionary;
+using SunamoShared;
+using SunamoShared.Constants;
+using SunamoValues;
+using System.Xml.Linq;
 using static Ignored;
 
 public class XmlDocumentsCache
@@ -113,7 +118,7 @@ ResultWithException<XmlDocument>
         }
 
         if (save) TFSE.WriteAllText(path, xml);
-        xml = XHDuo.FormatXml(xml, path);
+        xml = FormatXml(xml);
 
         if (xml.StartsWith(Consts.Exception)) return new ResultWithException<XmlDocument>(xml);
 
@@ -154,6 +159,20 @@ ResultWithException<XmlDocument>
 
         //}
         return new ResultWithException<XmlDocument>(doc);
+    }
+
+    private static string FormatXml(string xml)
+    {
+        try
+        {
+            XDocument doc = XDocument.Parse(xml);
+            return doc.ToString();
+        }
+        catch (Exception)
+        {
+            // Handle and throw if fatal exception here; don't just ignore them
+            return xml;
+        }
     }
 
     public static Dictionary<string, XmlDocument> BuildProjectDeps()
@@ -218,6 +237,6 @@ void
                 TFSE.WriteAllText(path, v.OuterXml);
         }
 
-        DictionaryHelperSE.AddOrSet(cache, path, v);
+        DictionaryHelper.AddOrSet(cache, path, v);
     }
 }

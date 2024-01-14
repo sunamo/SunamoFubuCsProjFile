@@ -1,3 +1,5 @@
+using SunamoFileSystem;
+
 namespace SunamoFubuCsProjFile._NotMine;
 
 
@@ -95,7 +97,7 @@ public class Solution
             .ReadAllText();
 
         var filename = directory.AppendPath(name);
-        if (Path.GetExtension(filename) != ".sln") filename = filename + ".sln";
+        if (FS.GetExtension(filename) != ".sln") filename = filename + ".sln";
 
         return new Solution(filename, text)
         {

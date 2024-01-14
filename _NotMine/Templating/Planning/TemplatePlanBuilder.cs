@@ -1,3 +1,5 @@
+using SunamoFileSystem;
+
 namespace SunamoFubuCsProjFile._NotMine.Templating.Planning;
 
 
@@ -91,7 +93,7 @@ void
     {
         var sourceDirectory = plan.SourceDirectory;
         var expectedFile = sourceDirectory.AppendPath(request.SolutionName);
-        if (Path.GetExtension(expectedFile) != ".sln") expectedFile += ".sln";
+        if (FS.GetExtension(expectedFile) != ".sln") expectedFile += ".sln";
 
         if (File.Exists(expectedFile))
             plan.Add(new ReadSolution(expectedFile));

@@ -1,3 +1,5 @@
+using SunamoFileSystem;
+
 namespace SunamoFubuCsProjFile._NotMine.Templating.Runtime;
 
 
@@ -10,7 +12,7 @@ public class CodeFileTemplate : IProjectAlteration
 
     public CodeFileTemplate(string relativePath, string rawText)
     {
-        if (Path.GetExtension(relativePath) != ".cs")
+        if (FS.GetExtension(relativePath) != ".cs")
             ThrowEx.ArgumentOutOfRangeException("relativePath", "Relative Path must have the .cs extension");
 
         RelativePath = relativePath.Replace('\\', '/');
@@ -56,7 +58,7 @@ void
             .ReadAllText()
             .Replace(CLASS, @class);
 
-        if (Path.GetExtension(relativePath) != ".cs") relativePath = relativePath + ".cs";
+        if (FS.GetExtension(relativePath) != ".cs") relativePath = relativePath + ".cs";
 
         return new CodeFileTemplate(relativePath, rawText);
     }
