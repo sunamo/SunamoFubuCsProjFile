@@ -13,7 +13,7 @@ public class AssemblyInfoFubu : CodeFile
         _codeFile = codeFile;
         _projFile = projFile;
         _fileSystem = new FileSystem();
-        Initialize();
+        Initialize().GetAwaiter().GetResult();
     }
 
     private string FullPath => _fileSystem.GetFullPath(Path.Combine(_projFile.ProjectDirectory, _codeFile.Include));

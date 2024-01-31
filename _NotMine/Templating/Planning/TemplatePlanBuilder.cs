@@ -1,5 +1,3 @@
-using SunamoFileSystem;
-
 namespace SunamoFubuCsProjFile._NotMine.Templating.Planning;
 
 
@@ -15,32 +13,35 @@ public class TemplatePlanBuilder
 
 
     // TODO -- do a bulk validation of TemplateRequest against the library
-    public TemplatePlan BuildPlan(TemplateRequest request)
+    public async Task<TemplatePlan> BuildPlan(TemplateRequest request)
     {
         var plan = new TemplatePlan(request.RootDirectory);
         if (request.SolutionName.IsNotEmpty()) determineSolutionFileHandling(request, plan);
 
-        applySolutionTemplates(request, plan);
+        await applySolutionTemplates(request, plan);
         request.Substitutions.CopyTo(plan.Substitutions);
 
-        applyProjectTemplates(request, plan);
-        applyTestingTemplates(request, plan);
+        await applyProjectTemplates(request, plan);
+        await applyTestingTemplates(request, plan);
 
         return plan;
     }
 
-    private void applyTestingTemplates(TemplateRequest request, TemplatePlan plan)
+    private async Task applyTestingTemplates(TemplateRequest request, TemplatePlan plan)
     {
-        request.TestingProjects.Each(proj =>
+        foreach (var proj in request.TestingProjects)
         {
-            buildProjectPlan(plan, proj);
+            await buildProjectPlan(plan, proj);
             plan.Add(new CopyProjectReferences(proj.OriginalProject));
-        });
+        };
     }
 
-    private void applyProjectTemplates(TemplateRequest request, TemplatePlan plan)
+    private async Task applyProjectTemplates(TemplateRequest request, TemplatePlan plan)
     {
-        request.Projects.Each(proj => buildProjectPlan(plan, proj));
+        foreach (var proj in request.TestingProjects)
+        {
+            await buildProjectPlan(plan, proj);
+        }
     }
 
     private

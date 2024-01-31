@@ -34,7 +34,7 @@ void
         var parentDirectory = path.ParentDirectory();
         if (!Directory.Exists(parentDirectory)) Directory.CreateDirectory(parentDirectory);
 
-        new FileSystem().AlterFlatFile(path, contents => Alter(contents, plan));
+        new FileSystem().AlterFlatFile(path, contents => Alter(contents, plan).GetAwaiter().GetResult());
     }
 
     /// <summary>

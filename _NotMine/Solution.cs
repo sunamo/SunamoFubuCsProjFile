@@ -1,5 +1,3 @@
-using SunamoFileSystem;
-
 namespace SunamoFubuCsProjFile._NotMine;
 
 
@@ -426,7 +424,7 @@ SolutionProject
                 _solutionProject = new SolutionProject(text, _parent.Filename.ParentDirectory());
 
                 // nechat, .Each v Solution.cs (řádek 68) chce jen Action. avšak potřebuji Func aby mi to vrátilo task. Vkládaní do asynchronních lambd nejde. Jistě řešení to bude mít, ale já jako zelenáč v async to zatím nesvedu.
-                _solutionProject.Init();
+                _solutionProject.Init().GetAwaiter().GetResult();
                 _solutionProject.Solution = _parent;
                 _parent._projects.Add(_solutionProject);
                 _read = readProject;

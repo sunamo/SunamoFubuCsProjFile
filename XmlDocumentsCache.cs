@@ -1,10 +1,5 @@
 namespace SunamoFubuCsProjFile;
 
-using SunamoDictionary;
-using SunamoShared;
-using SunamoShared.Constants;
-using SunamoValues;
-using System.Xml.Linq;
 using static Ignored;
 
 public class XmlDocumentsCache
@@ -117,7 +112,7 @@ ResultWithException<XmlDocument>
             save = true;
         }
 
-        if (save) TFSE.WriteAllText(path, xml);
+        if (save) await TFSE.WriteAllText(path, xml);
         xml = FormatXml(xml);
 
         if (xml.StartsWith(Consts.Exception)) return new ResultWithException<XmlDocument>(xml);
