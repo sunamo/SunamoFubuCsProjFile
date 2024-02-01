@@ -102,7 +102,7 @@ public class TemplatePlan
             Logger.Trace("---------------");
             MissingInputs.Each(x => Console.WriteLine(x));
 
-            ThrowEx.Custom("MissingInput: " + string.Join(",", MissingInputs));
+            throw new Exception("MissingInput: " + string.Join(",", MissingInputs));
         }
 
         Logger.Starting(_steps.Count);
@@ -152,8 +152,8 @@ public class TemplatePlan
         var projectsWithNugets = determineProjectsWithNugets();
         if (projectsWithNugets.Any())
         {
-            CL.WriteLine();
-            CL.WriteLine("Nuget imports:");
+            Console.WriteLine();
+            Console.WriteLine("Nuget imports:");
             projectsWithNugets.Each(x => Console.WriteLine(x));
         }
     }
@@ -233,13 +233,13 @@ public class TemplatePlan
             list => list.AddRange(contents));
 
 
-        CL.WriteLine();
-        CL.WriteLine();
-        CL.ForegroundColor = ConsoleColor.Cyan;
+        Console.WriteLine();
+        Console.WriteLine();
+        //Console.ForegroundColor = ConsoleColor.Cyan;
 
         contents.Each(x => Console.WriteLine(x));
 
-        CL.ResetColor();
+        //Console.ResetColor();
     }
 
     public string GetInstructions()

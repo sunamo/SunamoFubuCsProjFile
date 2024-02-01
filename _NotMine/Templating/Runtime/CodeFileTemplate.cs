@@ -10,7 +10,7 @@ public class CodeFileTemplate : IProjectAlteration
 
     public CodeFileTemplate(string relativePath, string rawText)
     {
-        if (FS.GetExtension(relativePath) != ".cs")
+        if (Path.GetExtension(relativePath) != ".cs")
             ThrowEx.ArgumentOutOfRangeException("relativePath", "Relative Path must have the .cs extension");
 
         RelativePath = relativePath.Replace('\\', '/');
@@ -56,7 +56,7 @@ void
             .ReadAllText()
             .Replace(CLASS, @class);
 
-        if (FS.GetExtension(relativePath) != ".cs") relativePath = relativePath + ".cs";
+        if (Path.GetExtension(relativePath) != ".cs") relativePath = relativePath + ".cs";
 
         return new CodeFileTemplate(relativePath, rawText);
     }

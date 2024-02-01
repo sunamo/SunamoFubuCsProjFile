@@ -1,6 +1,9 @@
+using SunamoDictionary;
+using SunamoInterfaces.Interfaces;
+
 namespace SunamoFubuCsProjFile;
 
-using static Ignored;
+
 
 public class XmlDocumentsCache
 {
@@ -56,7 +59,7 @@ ResultWithException<XmlDocument>
 
         if (cache.ContainsKey(path)) return new ResultWithException<XmlDocument>(cache[path]);
 
-        if (IsIgnored(path))
+        if (Ignored.IsIgnored(path))
         {
             cache.Add(path, null);
 
@@ -82,14 +85,14 @@ ResultWithException<XmlDocument>
         xml =
 #if ASYNC
             // Tohle nechápu. FubuCsProjFile i SunamoExceptions jsou net7.0.
-            // co to je za dementní chybu This call site is reachable on all platforms. 'TF.ReadAllTextAsync(string)' is only supported on: 'Windows' 7.0 and later.
+            // co to je za dementní chybu This call site is reachable on all platforms. 'File.ReadAllTextAsyncAsync(string)' is only supported on: 'Windows' 7.0 and later.
             await
 #endif
                 TFSE.ReadAllText(path);
         //}
         //else
         //{
-        //    xml = TF.ReadAllText(path);
+        //    xml = File.ReadAllTextAsync(path);
         //}
 
         if (xml.Contains(GitConsts.startingHead))

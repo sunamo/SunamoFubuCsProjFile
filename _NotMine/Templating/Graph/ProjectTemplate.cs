@@ -56,7 +56,7 @@ public class ProjectTemplate : DescribesItself
                 {
                     if (!tryResolveSelection(o, choices))
                         if (opt == null)
-                            ThrowEx.Custom("Unknown option '{0}' for project type {1}".ToFormat(o, Name));
+                            throw new Exception("Unknown option '{0}' for project type {1}".ToFormat(o, Name));
                 }
                 else
                 {

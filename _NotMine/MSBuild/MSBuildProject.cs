@@ -245,7 +245,7 @@ return XmlDocumentsCache.Get(file);
             elem.ParentNode.RemoveChild(elem);
         else
             //FIXME: should this actually log an error?
-            CL.WriteLine("ppnf:");
+            Console.WriteLine("ppnf:");
     }
 
     public MSBuildPropertySet GetGlobalPropertyGroup()

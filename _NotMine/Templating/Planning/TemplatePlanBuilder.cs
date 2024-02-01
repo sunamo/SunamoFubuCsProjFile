@@ -94,7 +94,7 @@ void
     {
         var sourceDirectory = plan.SourceDirectory;
         var expectedFile = sourceDirectory.AppendPath(request.SolutionName);
-        if (FS.GetExtension(expectedFile) != ".sln") expectedFile += ".sln";
+        if (Path.GetExtension(expectedFile) != ".sln") expectedFile += ".sln";
 
         if (File.Exists(expectedFile))
             plan.Add(new ReadSolution(expectedFile));

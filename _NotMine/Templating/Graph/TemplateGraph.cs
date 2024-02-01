@@ -41,15 +41,15 @@ public class TemplateGraph
 
     public ProjectRequest BuildProjectRequest(TemplateChoices choices)
     {
-        if (choices.Category.IsEmpty()) ThrowEx.Custom("Category is required");
-        if (choices.ProjectName.IsEmpty()) ThrowEx.Custom("ProjectName is required");
+        if (choices.Category.IsEmpty()) throw new Exception("Category is required");
+        if (choices.ProjectName.IsEmpty()) throw new Exception("ProjectName is required");
 
         var category = FindCategory(choices.Category);
-        if (category == null) ThrowEx.Custom("Category '{0}' is unknown".ToFormat(choices.Category));
+        if (category == null) throw new Exception("Category '{0}' is unknown".ToFormat(choices.Category));
 
         var project = category.FindTemplate(choices.ProjectType);
         if (project == null)
-            ThrowEx.Custom(
+            throw new Exception(
                 "ProjectTemplate '{0}' for category {1} is unknown".ToFormat(choices.ProjectType,
                     choices.Category));
 
