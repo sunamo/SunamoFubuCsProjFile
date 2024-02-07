@@ -31,4 +31,3 @@ global using SunamoFubuCsProjFile._NotMine.Templating.Runtime;
 global using SunamoExceptions.Data;
 global using SunamoFubuCsProjFile._NotMine.Constants;
 global using System.Runtime.Versioning;
-global using System.Collections.Immutable;
