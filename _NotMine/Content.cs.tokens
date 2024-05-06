@@ -1,0 +1,15 @@
+NotMine
+ProjectItem
+LinkAtt
+Link
+CopyToOutputDirectoryAtt
+CopyToOutputDirectory
+ItemGroupsConsts
+ContentCopy
+Never
+MSBuildItem
+MSBuildItemGroup
+Always
+PreserveNewest
+IfNewer
+BuildItem

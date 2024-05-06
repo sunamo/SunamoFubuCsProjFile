@@ -1,0 +1,9 @@
+NotMine
+MSBuild
+MSBuildProjectSettings
+When
+MaintainOriginalItemOrder
+CsprojFile
+OnlySaveIfChanged
+DefaultSettings
+MinimizeChanges

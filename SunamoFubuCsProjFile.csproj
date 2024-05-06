@@ -7,7 +7,7 @@
     <Description>Wrapper around FubuCsProjFile due to support .NET5+</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DefineConstants>DEBUG2;DEBUG;TRACE;ASYNC</DefineConstants>
+    <DefineConstants>DEBUG2;DEBUG;TRACE;ASYNC;SunamoFubuCsProjFile</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="readme.txt">
@@ -18,9 +18,9 @@
     <PackageReference Include="SunamoFubuCore" Version="24.2.6.2" />
   </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>
+    <DefineConstants>$(DefineConstants);ASYNC;SunamoFubuCsProjFile</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>$(DefineConstants);ASYNC</DefineConstants>
+    <DefineConstants>$(DefineConstants);ASYNC;SunamoFubuCsProjFile</DefineConstants>
   </PropertyGroup>
 </Project>

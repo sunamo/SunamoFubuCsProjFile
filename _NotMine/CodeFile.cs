@@ -1,7 +1,10 @@
-namespace SunamoFubuCsProjFile._NotMine;
+﻿namespace SunamoFubuCsProjFile._NotMine;
 
 
-
+/// <summary>
+/// TOhle je vlastně Compile tag
+/// Přidávání je přes metodu CodeFileTemplate
+/// </summary>
 public class CodeFile : ProjectItem
 {
     private const string LinkAtt = "Link";
