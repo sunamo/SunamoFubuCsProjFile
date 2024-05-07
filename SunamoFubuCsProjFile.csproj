@@ -17,6 +17,9 @@
     <PackageReference Include="SunamoDictionary" Version="24.2.6.2" />
     <PackageReference Include="SunamoFubuCore" Version="24.2.6.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SunamoGitBashBuilder\SunamoGitBashBuilder.csproj" />
+  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>$(DefineConstants);ASYNC;SunamoFubuCsProjFile</DefineConstants>
   </PropertyGroup>
