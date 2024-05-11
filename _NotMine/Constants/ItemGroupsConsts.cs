@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine.Constants;
+namespace SunamoFubuCsProjFile;
 
 public class ItemGroupsConsts
 {

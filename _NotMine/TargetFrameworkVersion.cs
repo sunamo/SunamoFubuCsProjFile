@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine;
+namespace SunamoFubuCsProjFile;
 
 public class TargetFrameworkVersion : IEquatable<TargetFrameworkVersion>, IComparable,
     IComparable<TargetFrameworkVersion>

@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine.Templating.Graph;
+namespace SunamoFubuCsProjFile;
 
 public class Input
 {

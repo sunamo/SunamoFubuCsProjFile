@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine.Templating.Graph;
+namespace SunamoFubuCsProjFile;
 
 /// <summary>
 ///     Only used to build out one ProjectRequest at a time

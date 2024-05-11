@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine;
+namespace SunamoFubuCsProjFile;
 
 /// <summary>
 ///     This type represents the project section in a Visual Studio solution file

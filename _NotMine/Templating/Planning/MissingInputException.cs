@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine.Templating.Planning;
+namespace SunamoFubuCsProjFile;
 
 [Serializable]
 public class MissingInputException : Exception

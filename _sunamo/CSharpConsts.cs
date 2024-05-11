@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._sunamo;
+namespace SunamoFubuCsProjFile;
 
 public class CSharpConsts
 {

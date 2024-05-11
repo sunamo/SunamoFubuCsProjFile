@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine;
+namespace SunamoFubuCsProjFile;
 
 public enum SolutionLoading
 {

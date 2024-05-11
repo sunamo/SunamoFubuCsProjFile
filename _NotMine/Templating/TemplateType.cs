@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine.Templating;
+namespace SunamoFubuCsProjFile;
 
 public enum TemplateType
 {

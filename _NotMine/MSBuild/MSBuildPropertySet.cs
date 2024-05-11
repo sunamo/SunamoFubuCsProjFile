@@ -1,4 +1,4 @@
-namespace SunamoFubuCsProjFile._NotMine.MSBuild;
+namespace SunamoFubuCsProjFile;
 
 public interface MSBuildPropertySet
 {
