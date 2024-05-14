@@ -27,6 +27,20 @@
     <Compile Include="..\SunamoValues\AllChars.cs" Link="_linked\SunamoValues\AllChars.cs" />
     <Compile Include="..\SunamoExceptions\OnlyInSE\Exc.cs" Link="_linked\SunamoExceptions\OnlyInSE\Exc.cs" />
     <Compile Include="..\SunamoXlfKeys\XlfKeys.cs" Link="_linked\SunamoXlfKeys\XlfKeys.cs" />
+    <Compile Include="..\SunamoFubuCore\FileSystem.cs" Link="_linked\SunamoFubuCore\FileSystem.cs" />
+    <Compile Include="..\SunamoParsing\Parse.cs" Link="_linked\SunamoParsing\Parse.cs" />
+    <Compile Include="..\SunamoCSharp\Values\CSharpConsts.cs" Link="_linked\SunamoCSharp\Values\CSharpConsts.cs" />
+    <Compile Include="..\SunamoExceptions\InSunamoIsDerivedFrom\TFSE.cs" Link="_linked\SunamoExceptions\InSunamoIsDerivedFrom\TFSE.cs" />
+    <Compile Include="..\SunamoDictionary\DictionaryHelper.cs" Link="_linked\SunamoDictionary\DictionaryHelper.cs" />
+    <Compile Include="..\SunamoFubuCore\Platform.cs" Link="_linked\SunamoFubuCore\Platform.cs" />
+    <Compile Include="..\SunamoFubuCore\Util\Cache.cs" Link="_linked\SunamoFubuCore\Util\Cache.cs" />
+    <Compile Include="..\SunamoParsing\TryParse.cs" Link="_linked\SunamoParsing\TryParse.cs" />
+    <Compile Include="..\SunamoFubuCore\IFileSystem.cs" Link="_linked\SunamoFubuCore\IFileSystem.cs" />
+    <Compile Include="..\SunamoFubuCore\Descriptions\Description.cs" Link="_linked\SunamoFubuCore\Descriptions\Description.cs" />
+    <Compile Include="..\SunamoFubuCore\Descriptions\DescribesItself.cs" Link="_linked\SunamoFubuCore\Descriptions\DescribesItself.cs" />
+    <Compile Include="..\SunamoFubuCore\FileSet.cs" Link="_linked\SunamoFubuCore\FileSet.cs" />
+    <Compile Include="..\SunamoFubuCore\Logging\Logger.cs" Link="_linked\SunamoFubuCore\Logging\Logger.cs" />
+    <Compile Include="..\SunamoFubuCore\CommandLine\ConsoleWriter.cs" Link="_linked\SunamoFubuCore\CommandLine\ConsoleWriter.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="SunamoDictionary" Version="24.2.6.2" />
