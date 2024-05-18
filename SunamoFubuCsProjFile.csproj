@@ -43,8 +43,6 @@
     <Compile Include="..\SunamoFubuCore\CommandLine\ConsoleWriter.cs" Link="_linked\SunamoFubuCore\CommandLine\ConsoleWriter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="SunamoDictionary" Version="24.2.6.2" />
-    <PackageReference Include="SunamoFubuCore" Version="24.2.6.2" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SunamoGitBashBuilder\SunamoGitBashBuilder.csproj" />
