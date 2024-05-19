@@ -12,35 +12,6 @@
   <ItemGroup>
     <Content Include="readme.txt">
     </Content>
-    <Compile Include="..\SunamoInterfaces\Interfaces\IProgressBar.cs" Link="_linked\SunamoInterfaces\Interfaces\IProgressBar.cs" />
-    <Compile Include="..\SunamoExceptions\Data\ResultWithException.cs" Link="_linked\SunamoExceptions\Data\ResultWithException.cs" />
-    <Compile Include="..\SunamoValues\GitConsts.cs" Link="_linked\SunamoValues\GitConsts.cs" />
-    <Compile Include="..\SunamoValues\Consts.cs" Link="_linked\SunamoValues\Consts.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\ThrowEx.cs" Link="_linked\SunamoExceptions\OnlyInSE\ThrowEx.cs" />
-    <Compile Include="..\SunamoEnums\Enums\Encodings.cs" Link="_linked\SunamoEnums\Enums\Encodings.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\Types.cs" Link="_linked\SunamoExceptions\OnlyInSE\Types.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\Exceptions.cs" Link="_linked\SunamoExceptions\OnlyInSE\Exceptions.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\TranslateAble.cs" Link="_linked\SunamoExceptions\OnlyInSE\TranslateAble.cs" />
-    <Compile Include="..\SunamoExceptions\_AddedToAllCsproj\SHSunamoExceptions.cs" Link="_linked\SunamoExceptions\_AddedToAllCsproj\SHSunamoExceptions.cs" />
-    <Compile Include="..\SunamoExceptions\_AddedToAllCsproj\CASunamoExceptions.cs" Link="_linked\SunamoExceptions\_AddedToAllCsproj\CASunamoExceptions.cs" />
-    <Compile Include="..\SunamoValues\AllStrings.cs" Link="_linked\SunamoValues\AllStrings.cs" />
-    <Compile Include="..\SunamoValues\AllChars.cs" Link="_linked\SunamoValues\AllChars.cs" />
-    <Compile Include="..\SunamoExceptions\OnlyInSE\Exc.cs" Link="_linked\SunamoExceptions\OnlyInSE\Exc.cs" />
-    <Compile Include="..\SunamoXlfKeys\XlfKeys.cs" Link="_linked\SunamoXlfKeys\XlfKeys.cs" />
-    <Compile Include="..\SunamoFubuCore\FileSystem.cs" Link="_linked\SunamoFubuCore\FileSystem.cs" />
-    <Compile Include="..\SunamoParsing\Parse.cs" Link="_linked\SunamoParsing\Parse.cs" />
-    <Compile Include="..\SunamoCSharp\Values\CSharpConsts.cs" Link="_linked\SunamoCSharp\Values\CSharpConsts.cs" />
-    <Compile Include="..\SunamoExceptions\InSunamoIsDerivedFrom\TFSE.cs" Link="_linked\SunamoExceptions\InSunamoIsDerivedFrom\TFSE.cs" />
-    <Compile Include="..\SunamoDictionary\DictionaryHelper.cs" Link="_linked\SunamoDictionary\DictionaryHelper.cs" />
-    <Compile Include="..\SunamoFubuCore\Platform.cs" Link="_linked\SunamoFubuCore\Platform.cs" />
-    <Compile Include="..\SunamoFubuCore\Util\Cache.cs" Link="_linked\SunamoFubuCore\Util\Cache.cs" />
-    <Compile Include="..\SunamoParsing\TryParse.cs" Link="_linked\SunamoParsing\TryParse.cs" />
-    <Compile Include="..\SunamoFubuCore\IFileSystem.cs" Link="_linked\SunamoFubuCore\IFileSystem.cs" />
-    <Compile Include="..\SunamoFubuCore\Descriptions\Description.cs" Link="_linked\SunamoFubuCore\Descriptions\Description.cs" />
-    <Compile Include="..\SunamoFubuCore\Descriptions\DescribesItself.cs" Link="_linked\SunamoFubuCore\Descriptions\DescribesItself.cs" />
-    <Compile Include="..\SunamoFubuCore\FileSet.cs" Link="_linked\SunamoFubuCore\FileSet.cs" />
-    <Compile Include="..\SunamoFubuCore\Logging\Logger.cs" Link="_linked\SunamoFubuCore\Logging\Logger.cs" />
-    <Compile Include="..\SunamoFubuCore\CommandLine\ConsoleWriter.cs" Link="_linked\SunamoFubuCore\CommandLine\ConsoleWriter.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
