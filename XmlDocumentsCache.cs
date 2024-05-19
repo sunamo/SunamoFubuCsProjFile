@@ -1,7 +1,13 @@
 
 
 
-namespace SunamoFubuCsProjFile;
+namespace
+#if SunamoDevCode
+SunamoDevCode
+#else
+SunamoFubuCsProjFile
+#endif
+;
 
 
 
@@ -88,7 +94,7 @@ ResultWithException<XmlDocument>
             // co to je za dementní chybu This call site is reachable on all platforms. 'File.ReadAllTextAsyncAsync(string)' is only supported on: 'Windows' 7.0 and later.
             await
 #endif
-                TFSE.ReadAllText(path);
+                File.ReadAllTextAsync(path);
         //}
         //else
         //{

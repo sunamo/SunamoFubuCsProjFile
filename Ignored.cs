@@ -1,4 +1,10 @@
-namespace SunamoFubuCsProjFile;
+namespace
+#if SunamoDevCode
+SunamoDevCode
+#else
+SunamoFubuCsProjFile
+#endif
+;
 
 public class Ignored
 {
