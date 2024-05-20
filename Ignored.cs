@@ -5,7 +5,6 @@ SunamoDevCode
 SunamoFubuCsProjFile
 #endif
 ;
-
 public class Ignored
 {
     public class StartWith
@@ -14,12 +13,10 @@ public class Ignored
         public const string archived = @"_Archived";
         public const string mixin = @"_Mixin";
     }
-
     public class EndsWith
     {
         public const string vcxProj = ".vcxproj";
     }
-
     public static bool IsIgnored(string path)
     {
         if (path == null) return true;

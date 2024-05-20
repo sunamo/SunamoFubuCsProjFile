@@ -5,6 +5,8 @@ SunamoGoogleSheets
 SunamoString
 #elif SunamoStringShared
 SunamoStringShared
+#elif SunamoStringReplace
+SunamoStringReplace
 #else
 SunamoFubuCsProjFile
 #endif
