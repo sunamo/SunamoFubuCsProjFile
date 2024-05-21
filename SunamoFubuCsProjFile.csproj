@@ -28,6 +28,7 @@
     <Compile Include="..\SunamoFubuCore\Util\Cache.cs" Link="_linked\SunamoFubuCore\Util\Cache.cs" />
     <Compile Include="..\SunamoFubuCore\Descriptions\IDescriptionVisitor.cs" Link="_linked\SunamoFubuCore\Descriptions\IDescriptionVisitor.cs" />
     <Compile Include="..\SunamoFubuCore\Descriptions\BulletList.cs" Link="_linked\SunamoFubuCore\Descriptions\BulletList.cs" />
+    <Compile Include="..\SunamoXlfKeys\XlfKeys.cs" Link="_linked\SunamoXlfKeys\XlfKeys.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
