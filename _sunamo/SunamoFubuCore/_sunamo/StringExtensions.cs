@@ -1,7 +1,7 @@
 namespace SunamoFubuCsProjFile;
 
 
-public static class StringExtensions
+internal static class StringExtensions
 {
     /// <summary>
     ///     If the path is rooted, just returns the path.  Otherwise,
@@ -10,16 +10,16 @@ public static class StringExtensions
     /// <param name="path"></param>
     /// <param name="root"></param>
     /// <returns></returns>
-    public static string CombineToPath(this string path, string root)
+    internal static string CombineToPath(this string path, string root)
     {
         if (Path.IsPathRooted(path)) return path;
         return Path.Combine(root, path);
     }
-    public static void IfNotNull(this string target, Action<string> continuation)
+    internal static void IfNotNull(this string target, Action<string> continuation)
     {
         if (target != null) continuation(target);
     }
-    public static string ToFullPath(this string path)
+    internal static string ToFullPath(this string path)
     {
         return Path.GetFullPath(path);
     }
@@ -29,7 +29,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="path"></param>
     /// <returns></returns>
-    public static string ParentDirectory(this string path)
+    internal static string ParentDirectory(this string path)
     {
         return Path.GetDirectoryName(path.TrimEnd(Path.DirectorySeparatorChar));
     }
@@ -39,7 +39,7 @@ public static class StringExtensions
     /// <param name="path"></param>
     /// <param name="parts"></param>
     /// <returns></returns>
-    public static string AppendPath(this string path, params string[] parts)
+    internal static string AppendPath(this string path, params string[] parts)
     {
         var list = new List<string>
 {
@@ -48,7 +48,7 @@ path
         list.AddRange(parts);
         return FileSystem.Combine(list.ToArray());
     }
-    public static string PathRelativeTo(this string path, string root)
+    internal static string PathRelativeTo(this string path, string root)
     {
         var pathParts = path.getPathParts();
         var rootParts = root.getPathParts();
@@ -66,39 +66,39 @@ path
         for (var i = 0; i < rootParts.Count; i++) pathParts.Insert(0, "..");
         return pathParts.Count > 0 ? FileSystem.Combine(pathParts.ToArray()) : string.Empty;
     }
-    public static bool IsEmpty(this string stringValue)
+    internal static bool IsEmpty(this string stringValue)
     {
         return string.IsNullOrEmpty(stringValue);
     }
-    public static bool IsNotEmpty(this string stringValue)
+    internal static bool IsNotEmpty(this string stringValue)
     {
         return !string.IsNullOrEmpty(stringValue);
     }
-    public static void IsNotEmpty(this string stringValue, Action<string> action)
+    internal static void IsNotEmpty(this string stringValue, Action<string> action)
     {
         if (stringValue.IsNotEmpty())
             action(stringValue);
     }
-    public static bool ToBool(this string stringValue)
+    internal static bool ToBool(this string stringValue)
     {
         if (string.IsNullOrEmpty(stringValue)) return false;
         return bool.Parse(stringValue);
     }
-    public static string ToFormat(this string stringFormat, params Object[] args)
+    internal static string ToFormat(this string stringFormat, params Object[] args)
     {
         return string.Format(stringFormat, args);
     }
     /// <summary>
     ///     Performs a case-insensitive comparison of strings
     /// </summary>
-    public static bool EqualsIgnoreCase(this string thisString, string otherString)
+    internal static bool EqualsIgnoreCase(this string thisString, string otherString)
     {
         return thisString.Equals(otherString, StringComparison.InvariantCultureIgnoreCase);
     }
     /// <summary>
     ///     Converts the string to Title Case
     /// </summary>
-    public static string Capitalize(this string stringValue)
+    internal static string Capitalize(this string stringValue)
     {
         return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(stringValue);
     }
@@ -106,7 +106,7 @@ path
     ///     Formats a multi-line string for display on the web
     /// </summary>
     /// <param name="plainText"></param>
-    public static string ConvertCRLFToBreaks(this string plainText)
+    internal static string ConvertCRLFToBreaks(this string plainText)
     {
         return new Regex("(\r\n|\n)").Replace(plainText, "<br/>");
     }
@@ -115,29 +115,29 @@ path
     /// </summary>
     /// <param name="dateTimeValue">A valid, parseable DateTime value</param>
     /// <returns>The parsed DateTime value</returns>
-    public static DateTime ToDateTime(this string dateTimeValue)
+    internal static DateTime ToDateTime(this string dateTimeValue)
     {
         return DateTime.Parse(dateTimeValue);
     }
-    public static string ToGmtFormattedDate(this DateTime date)
+    internal static string ToGmtFormattedDate(this DateTime date)
     {
         return date.ToString("yyyy'-'MM'-'dd hh':'mm':'ss tt 'GMT'");
     }
-    public static string[] ToDelimitedArray(this string content)
+    internal static string[] ToDelimitedArray(this string content)
     {
         return content.ToDelimitedArray(',');
     }
-    public static string[] ToDelimitedArray(this string content, char delimiter)
+    internal static string[] ToDelimitedArray(this string content, char delimiter)
     {
         var array = content.Split(delimiter);
         for (var i = 0; i < array.Length; i++) array[i] = array[i].Trim();
         return array;
     }
-    public static bool IsValidNumber(this string number)
+    internal static bool IsValidNumber(this string number)
     {
         return IsValidNumber(number, Thread.CurrentThread.CurrentCulture);
     }
-    public static bool IsValidNumber(this string number, CultureInfo culture)
+    internal static bool IsValidNumber(this string number, CultureInfo culture)
     {
         var _validNumberPattern =
         @"^-?(?:\d+|\d{1,3}(?:"
@@ -147,11 +147,11 @@ path
         @"\d+)?$";
         return new Regex(_validNumberPattern, RegexOptions.ECMAScript).IsMatch(number);
     }
-    public static IList<string> getPathParts(this string path)
+    internal static IList<string> getPathParts(this string path)
     {
         return path.Split(new[] { Path.DirectorySeparatorChar }, StringSplitOptions.RemoveEmptyEntries).ToList();
     }
-    public static string DirectoryPath(this string path)
+    internal static string DirectoryPath(this string path)
     {
         return Path.GetDirectoryName(path);
     }
@@ -160,7 +160,7 @@ path
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public static IEnumerable<string> ReadLines(this string text)
+    internal static IEnumerable<string> ReadLines(this string text)
     {
         var reader = new StringReader(text);
         string line;
@@ -171,7 +171,7 @@ path
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public static void ReadLines(this string text, Action<string> callback)
+    internal static void ReadLines(this string text, Action<string> callback)
     {
         var reader = new StringReader(text);
         string line;
@@ -182,7 +182,7 @@ path
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public static string ToHash(this string text)
+    internal static string ToHash(this string text)
     {
         return MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(text)).Select(b => b.ToString("x2")).Join("");
     }
@@ -191,7 +191,7 @@ path
     /// </summary>
     /// <param name="str"></param>
     /// <returns></returns>
-    public static string SplitCamelCase(this string str)
+    internal static string SplitCamelCase(this string str)
     {
         return Regex.Replace(Regex.Replace(str, @"(\P{Ll})(\P{Ll}\p{Ll})", "$1 $2"), @"(\p{Ll})(\P{Ll})", "$1 $2");
     }
@@ -200,11 +200,11 @@ path
     /// </summary>
     /// <param name="str"></param>
     /// <returns></returns>
-    public static string SplitPascalCase(this string str)
+    internal static string SplitPascalCase(this string str)
     {
         return str.SplitCamelCase();
     }
-    public static TEnum ToEnum<TEnum>(this string text) where TEnum : struct
+    internal static TEnum ToEnum<TEnum>(this string text) where TEnum : struct
     {
         var enumType = typeof(TEnum);
         if (!enumType.IsEnum) throw new ArgumentException("{0} is not an Enum".ToFormat(enumType.Name));
@@ -215,7 +215,7 @@ path
     /// </summary>
     /// <param name="file"></param>
     /// <returns></returns>
-    public static string FileEscape(this string file)
+    internal static string FileEscape(this string file)
     {
         return "\"{0}\"".ToFormat(file);
     }

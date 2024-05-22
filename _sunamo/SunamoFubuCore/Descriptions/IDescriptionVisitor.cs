@@ -1,7 +1,7 @@
 namespace SunamoFubuCsProjFile;
 
 
-public interface IDescriptionVisitor
+internal interface IDescriptionVisitor
 {
     void Start(Description description);
     void StartList(BulletList list);

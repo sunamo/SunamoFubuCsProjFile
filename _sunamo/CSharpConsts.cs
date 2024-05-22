@@ -1,6 +1,6 @@
 namespace SunamoFubuCsProjFile;
 
-public class CSharpConsts
+internal class CSharpConsts
 {
-    public const string lc = "//";
+    internal const string lc = "//";
 }

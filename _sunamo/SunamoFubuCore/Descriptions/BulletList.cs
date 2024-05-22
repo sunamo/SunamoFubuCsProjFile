@@ -1,17 +1,17 @@
 namespace SunamoFubuCsProjFile;
 
 
-public class BulletList
+internal class BulletList
 {
-    public BulletList()
+    internal BulletList()
     {
         Children = new List<Description>();
     }
-    public IList<Description> Children { get; }
-    public string Name { get; set; }
-    public string Label { get; set; }
-    public bool IsOrderDependent { get; set; }
-    public void AcceptVisitor(IDescriptionVisitor visitor)
+    internal IList<Description> Children { get; }
+    internal string Name { get; set; }
+    internal string Label { get; set; }
+    internal bool IsOrderDependent { get; set; }
+    internal void AcceptVisitor(IDescriptionVisitor visitor)
     {
         visitor.StartList(this);
         Children.Each(x => x.AcceptVisitor(visitor));

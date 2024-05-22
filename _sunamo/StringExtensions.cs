@@ -1,20 +1,20 @@
 namespace SunamoFubuCsProjFile;
 
-public static class StringExtensions
+internal static class StringExtensions
 {
     private static readonly string[] Splitters = { Consts.rn, "\n" };
 
-    public static string[] SplitOnNewLine(this string value)
+    internal static string[] SplitOnNewLine(this string value)
     {
         return value.Split(Splitters, StringSplitOptions.None);
     }
 
-    public static string CanonicalPath(this string path)
+    internal static string CanonicalPath(this string path)
     {
         return path.ToFullPath().ToLower().Replace("\\", "/");
     }
 
-    public static bool ContainsSequence(this List<string> list, IEnumerable<string> lines)
+    internal static bool ContainsSequence(this List<string> list, IEnumerable<string> lines)
     {
         var index = list.IndexOf(lines.First());
         if (index == -1) return false;
@@ -34,7 +34,7 @@ public static class StringExtensions
         return true;
     }
 
-    public static string ExtractVersion(this string source)
+    internal static string ExtractVersion(this string source)
     {
         var result = new StringBuilder();
 
@@ -51,7 +51,7 @@ public static class StringExtensions
         return result.ToString().TrimEnd('.');
     }
 
-    public static bool Contains(this string source, string value, StringComparison comparison)
+    internal static bool Contains(this string source, string value, StringComparison comparison)
     {
         switch (comparison)
         {

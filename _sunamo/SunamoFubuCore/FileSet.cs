@@ -1,23 +1,23 @@
 namespace SunamoFubuCsProjFile;
 
 
-public class FileSet
+internal class FileSet
 {
-    public FileSet()
+    internal FileSet()
     {
         Include = "*.*";
         DeepSearch = true;
     }
-    public string Include { get; set; }
-     public string Exclude { get; set; }
-    public bool DeepSearch { get; set; }
+    internal string Include { get; set; }
+     internal string Exclude { get; set; }
+    internal bool DeepSearch { get; set; }
     /// <summary>
     ///     Does a deep search in the folder
     /// </summary>
     /// <param name="include">Semicolon delimited list of search criteria to be included in the results</param>
     /// <param name="exclude">Semicolon delimited list of search criteria to be excluded in the results</param>
     /// <returns></returns>
-    public static FileSet Deep(string include, string exclude = null)
+    internal static FileSet Deep(string include, string exclude = null)
     {
         return new FileSet
         {
@@ -32,7 +32,7 @@ public class FileSet
     /// <param name="include">Semicolon delimited list of search criteria to be included in the results</param>
     /// <param name="exclude">Semicolon delimited list of search criteria to be excluded in the results</param>
     /// <returns></returns>
-    public static FileSet Shallow(string include, string exclude = null)
+    internal static FileSet Shallow(string include, string exclude = null)
     {
         return new FileSet
         {
@@ -41,7 +41,7 @@ public class FileSet
             Include = include
         };
     }
-    public void AppendInclude(string include)
+    internal void AppendInclude(string include)
     {
         if (Include == "*.*") Include = string.Empty;
         if (Include.IsEmpty())
@@ -49,14 +49,14 @@ public class FileSet
         else
             Include += ";" + include;
     }
-    public void AppendExclude(string exclude)
+    internal void AppendExclude(string exclude)
     {
         if (Exclude.IsEmpty())
             Exclude = exclude;
         else
             Exclude += ";" + exclude;
     }
-    public IEnumerable<string> IncludedFilesFor(string path)
+    internal IEnumerable<string> IncludedFilesFor(string path)
     {
         var directory = new DirectoryInfo(path);
         return directory.Exists
@@ -91,11 +91,11 @@ public class FileSet
             }
         }).Distinct();
     }
-    public IEnumerable<string> ExcludedFilesFor(string path)
+    internal IEnumerable<string> ExcludedFilesFor(string path)
     {
         return getAllDistinctFiles(path, Exclude);
     }
-    public static FileSet ForAssemblyNames(IEnumerable<string> assemblyNames)
+    internal static FileSet ForAssemblyNames(IEnumerable<string> assemblyNames)
     {
         return new FileSet
         {
@@ -104,7 +104,7 @@ public class FileSet
             Include = assemblyNames.OrderBy(x => x).Select(x => "{0}.dll;{0}.exe".ToFormat(x)).Join(";")
         };
     }
-    public static FileSet ForAssemblyDebugFiles(IEnumerable<string> assemblyNames)
+    internal static FileSet ForAssemblyDebugFiles(IEnumerable<string> assemblyNames)
     {
         return new FileSet
         {
@@ -113,21 +113,21 @@ public class FileSet
             Include = assemblyNames.OrderBy(x => x).Select(x => "{0}.pdb".ToFormat(x)).Join(";")
         };
     }
-    public bool Equals(FileSet other)
+    internal bool Equals(FileSet other)
     {
         if (ReferenceEquals(null, other)) return false;
         if (ReferenceEquals(this, other)) return true;
         return Equals(other.Include, Include) && Equals(other.Exclude, Exclude) &&
         other.DeepSearch.Equals(DeepSearch);
     }
-    public override bool Equals(object obj)
+    internal override bool Equals(object obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != typeof(FileSet)) return false;
         return Equals((FileSet)obj);
     }
-    public override int GetHashCode()
+    internal override int GetHashCode()
     {
         unchecked
         {
@@ -137,11 +137,11 @@ public class FileSet
             return result;
         }
     }
-    public override string ToString()
+    internal override string ToString()
     {
         return string.Format("Include: {0}, Exclude: {1}", Include, Exclude);
     }
-    public static FileSet Everything()
+    internal static FileSet Everything()
     {
         return new FileSet { DeepSearch = true, Include = "*.*" };
     }

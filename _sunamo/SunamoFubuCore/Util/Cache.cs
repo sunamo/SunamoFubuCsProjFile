@@ -2,9 +2,9 @@ namespace SunamoFubuCsProjFile;
 
 
 [Serializable]
-public class Cache<TKey, TValue> : IEnumerable<TValue>
+internal class Cache<TKey, TValue> : IEnumerable<TValue>
 {
-    public static Type type = typeof(Cache<TKey, TValue>);
+    internal static Type type = typeof(Cache<TKey, TValue>);
     private readonly object _locker = new object();
     private readonly IDictionary<TKey, TValue> _values;
     private Func<TValue, TKey> _getKey = delegate
@@ -18,38 +18,38 @@ public class Cache<TKey, TValue> : IEnumerable<TValue>
         var message = string.Format("Key '{0}' could not be found", key);
         throw new KeyNotFoundException(message);
     };
-    public Cache()
+    internal Cache()
     : this(new Dictionary<TKey, TValue>())
     {
     }
-    public Cache(Func<TKey, TValue> onMissing)
+    internal Cache(Func<TKey, TValue> onMissing)
     : this(new Dictionary<TKey, TValue>(), onMissing)
     {
     }
-    public Cache(IDictionary<TKey, TValue> dictionary, Func<TKey, TValue> onMissing)
+    internal Cache(IDictionary<TKey, TValue> dictionary, Func<TKey, TValue> onMissing)
     : this(dictionary)
     {
         _onMissing = onMissing;
     }
-    public Cache(IDictionary<TKey, TValue> dictionary)
+    internal Cache(IDictionary<TKey, TValue> dictionary)
     {
         _values = dictionary;
     }
-    public Action<TValue> OnAddition
+    internal Action<TValue> OnAddition
     {
         set => _onAddition = value;
     }
-    public Func<TKey, TValue> OnMissing
+    internal Func<TKey, TValue> OnMissing
     {
         set => _onMissing = value;
     }
-    public Func<TValue, TKey> GetKey
+    internal Func<TValue, TKey> GetKey
     {
         get => _getKey;
         set => _getKey = value;
     }
-    public int Count => _values.Count;
-    public TValue First
+    internal int Count => _values.Count;
+    internal TValue First
     {
         get
         {
@@ -57,7 +57,7 @@ public class Cache<TKey, TValue> : IEnumerable<TValue>
             return default;
         }
     }
-    public TValue this[TKey key]
+    internal TValue this[TKey key]
     {
         get
         {
@@ -77,7 +77,7 @@ public class Cache<TKey, TValue> : IEnumerable<TValue>
     {
         return ((IEnumerable<TValue>)this).GetEnumerator();
     }
-    public IEnumerator<TValue> GetEnumerator()
+    internal IEnumerator<TValue> GetEnumerator()
     {
         return _values.Values.GetEnumerator();
     }
@@ -86,11 +86,11 @@ public class Cache<TKey, TValue> : IEnumerable<TValue>
     ///     If it does not already exist, it's created.
     /// </summary>
     /// <param name="key"></param>
-    public void FillDefault(TKey key)
+    internal void FillDefault(TKey key)
     {
         Fill(key, _onMissing);
     }
-    public void Fill(TKey key, Func<TKey, TValue> onMissing)
+    internal void Fill(TKey key, Func<TKey, TValue> onMissing)
     {
         if (!_values.ContainsKey(key))
             lock (_locker)
@@ -103,53 +103,53 @@ public class Cache<TKey, TValue> : IEnumerable<TValue>
                 }
             }
     }
-    public void Fill(TKey key, TValue value)
+    internal void Fill(TKey key, TValue value)
     {
         if (_values.ContainsKey(key)) return;
         _values.Add(key, value);
     }
-    public void Each(Action<TValue> action)
+    internal void Each(Action<TValue> action)
     {
         foreach (var pair in _values) action(pair.Value);
     }
-    public void Each(Action<TKey, TValue> action)
+    internal void Each(Action<TKey, TValue> action)
     {
         foreach (var pair in _values) action(pair.Key, pair.Value);
     }
-    public bool Has(TKey key)
+    internal bool Has(TKey key)
     {
         return _values.ContainsKey(key);
     }
-    public bool Exists(Predicate<TValue> predicate)
+    internal bool Exists(Predicate<TValue> predicate)
     {
         var returnValue = false;
         Each(delegate (TValue value) { returnValue |= predicate(value); });
         return returnValue;
     }
-    public TValue Find(Predicate<TValue> predicate)
+    internal TValue Find(Predicate<TValue> predicate)
     {
         foreach (var pair in _values)
             if (predicate(pair.Value))
                 return pair.Value;
         return default;
     }
-    public TKey[] GetAllKeys()
+    internal TKey[] GetAllKeys()
     {
         return _values.Keys.ToArray();
     }
-    public TValue[] GetAll()
+    internal TValue[] GetAll()
     {
         return _values.Values.ToArray();
     }
-    public void Remove(TKey key)
+    internal void Remove(TKey key)
     {
         if (_values.ContainsKey(key)) _values.Remove(key);
     }
-    public void ClearAll()
+    internal void ClearAll()
     {
         _values.Clear();
     }
-    public bool WithValue(TKey key, Action<TValue> callback)
+    internal bool WithValue(TKey key, Action<TValue> callback)
     {
         if (Has(key))
         {
@@ -158,7 +158,7 @@ public class Cache<TKey, TValue> : IEnumerable<TValue>
         }
         return false;
     }
-    public IDictionary<TKey, TValue> ToDictionary()
+    internal IDictionary<TKey, TValue> ToDictionary()
     {
         return new Dictionary<TKey, TValue>(_values);
     }

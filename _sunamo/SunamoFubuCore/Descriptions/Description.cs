@@ -1,30 +1,30 @@
 namespace SunamoFubuCsProjFile;
 
 
-public class Description
+internal class Description
 {
-    public Description()
+    internal Description()
     {
         BulletLists = new List<BulletList>();
     }
-    public Type TargetType { get; set; }
-    public string Title { get; set; }
-    public string ShortDescription { get; set; }
-    public string LongDescription { get; set; }
-    public Cache<string, string> Properties { get; } = new Cache<string, string>();
-    public Cache<string, Description> Children { get; } = new Cache<string, Description>();
-    public IList<BulletList> BulletLists { get; }
-    public bool HasExplicitShortDescription()
+    internal Type TargetType { get; set; }
+    internal string Title { get; set; }
+    internal string ShortDescription { get; set; }
+    internal string LongDescription { get; set; }
+    internal Cache<string, string> Properties { get; } = new Cache<string, string>();
+    internal Cache<string, Description> Children { get; } = new Cache<string, Description>();
+    internal IList<BulletList> BulletLists { get; }
+    internal bool HasExplicitShortDescription()
     {
         if (ShortDescription.IsEmpty()) return false;
         if (TargetType == null) return true;
         return ShortDescription != TargetType.FullName;
     }
-    public bool HasMoreThanTitle()
+    internal bool HasMoreThanTitle()
     {
         return HasExplicitShortDescription() || BulletLists.Any() || Children.Any() || Properties.Any();
     }
-    public BulletList AddList(string name, IEnumerable objects)
+    internal BulletList AddList(string name, IEnumerable objects)
     {
         var list = new BulletList
         {
@@ -38,7 +38,7 @@ public class Description
         });
         return list;
     }
-    public static Description For(object target)
+    internal static Description For(object target)
     {
         var type = target.GetType();
         var description = new Description
@@ -52,22 +52,22 @@ public class Description
         (target as DescribesItself).CallIfNotNull(x => x.Describe(description));
         return description;
     }
-    public static bool HasExplicitDescription(Type type)
+    internal static bool HasExplicitDescription(Type type)
     {
         return type.CanBeCastTo<DescribesItself>() || type.HasAttribute<DescriptionAttribute>() ||
         type.HasAttribute<TitleAttribute>();
     }
-    public override string ToString()
+    internal override string ToString()
     {
         return string.Format("{0}: {1}", Title, ShortDescription);
     }
-    public void AcceptVisitor(IDescriptionVisitor visitor)
+    internal void AcceptVisitor(IDescriptionVisitor visitor)
     {
         visitor.Start(this);
         BulletLists.Each(x => x.AcceptVisitor(visitor));
         visitor.End();
     }
-    public bool IsMultiLevel()
+    internal bool IsMultiLevel()
     {
         return BulletLists.Any() || Children.Any(x => x.IsMultiLevel());
     }
@@ -76,7 +76,7 @@ public class Description
     /// </summary>
     /// <param name="name"></param>
     /// <param name="child"></param>
-    public void AddChild(string name, object child)
+    internal void AddChild(string name, object child)
     {
         Children[name] = For(child);
     }
